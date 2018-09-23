@@ -43,9 +43,23 @@
   <option value="Storytelling">Storytelling</option>
   </select>
 
-  <input type="checkbox" id="checkNew">
+  <label><input type="checkbox" id="checkNew">New Games Only</label>
+  <label><input type="checkbox" id="maxPlayers">Maximum Players Only</label>
 
   <button id="choose">Choose a game for me!</button>
+  <button id="list">Show me the games!</button>
+
+<div id="selectedGames">
+  <img height=200px src="" id="GamePicture"></img>
+  <p id="GameName">Title: </p>
+  <p id="GamePlayers">Number of Players: </p>
+  <p id="GameTime">Game Length: </p>
+  <p id="GameComplexity">Game Complexity: </p>
+  <p id="GamePlayed">Previously Played: </p>
+  <p id="GameMode">Game Type: </p>
+
+
+</div>
 
   <script src="papaparse.min.js"></script>
   <script src="sort.js"></script>
