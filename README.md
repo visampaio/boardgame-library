@@ -1,4 +1,4 @@
-# boardgame-library (WIP - 0.2)
+# boardgame-library (WIP - 0.3)
 
 Application that randomly chooses a board game out of an CSV file according to the filters selected by the user.
 

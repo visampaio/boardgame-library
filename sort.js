@@ -38,7 +38,15 @@ choose.addEventListener("click", function() {
 
 list.addEventListener("click", function() {
   filteredList = [];
+  document.getElementById("selectedGames").innerHTML = "";
   console.log(filter(bgList));
+  for (var i=0; i<filteredList.length; i++) {
+    document.getElementById("selectedGames").innerHTML += "<img height=200px src='' class='GamePicture'></img>";
+    var pictures = document.getElementsByClassName("GamePicture");
+    for (var j=0; j<pictures.length; j++) {
+      pictures[j].src= filteredList[j].Picture;
+    }
+  }
 });
 
 function sort(){
@@ -68,19 +76,20 @@ function filter(bgList){
 function filterPlayer(bgList){
 
   for(var i=0; i<bgList.length-1; i++) {
-    for(var j=0; j<bgList[i].Players.length; j++){
-      switch(maxPlayers.checked) {
-        case true:
-          if (bgList[i].Players[bgList[i].Players.length-1] == selPlayer.value) {
-            filteredList.push(bgList[i]);
-          }
-          break;
-        case false:
-          if (bgList[i].Players[j] == selPlayer.value) {
-            filteredList.push(bgList[i]);
-          }
-          break;
+
+    switch(maxPlayers.checked) {
+      case true:
+        if (bgList[i].Players[bgList[i].Players.length-1] == selPlayer.value) {
+          filteredList.push(bgList[i]);
+        }
+        break;
+      case false:
+      for(var j=0; j<bgList[i].Players.length; j++){
+        if (bgList[i].Players[j] == selPlayer.value) {
+          filteredList.push(bgList[i]);
+        }
       }
+        break;
     }
   }
 }
