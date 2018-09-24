@@ -7,6 +7,8 @@ const checkNew = document.getElementById('checkNew');
 const maxPlayers = document.getElementById('maxPlayers');
 const choose = document.getElementById('choose');
 const list = document.getElementById('list');
+const fullCollection = document.getElementById('fullCollection');
+
 var bgList;
 var filteredList = [];
 var selected = [];
@@ -20,6 +22,17 @@ file.addEventListener("change", function() {
       splitPlayers(bgList);
   	}
   });
+});
+
+fullCollection.addEventListener("click", function() {
+  document.getElementById("selectedGames").innerHTML = "Number of Games selected: " + bgList.length;
+  for (var i=0; i<bgList.length-1; i++) {
+    document.getElementById("selectedGames").innerHTML += "<img height=200px src='' class='GamePicture'></img>";
+    var pictures = document.getElementsByClassName("GamePicture");
+    for (var j=0; j<pictures.length; j++) {
+      pictures[j].src=bgList[j].Picture;
+    }
+  }
 });
 
 choose.addEventListener("click", function() {
@@ -38,7 +51,7 @@ choose.addEventListener("click", function() {
 
 list.addEventListener("click", function() {
   filteredList = [];
-  document.getElementById("selectedGames").innerHTML = "";
+  document.getElementById("selectedGames").innerHTML = "<p id='numberOfGames'> </p>";
   console.log(filter(bgList));
   for (var i=0; i<filteredList.length; i++) {
     document.getElementById("selectedGames").innerHTML += "<img height=200px src='' class='GamePicture'></img>";
@@ -47,6 +60,7 @@ list.addEventListener("click", function() {
       pictures[j].src= filteredList[j].Picture;
     }
   }
+    document.getElementById("numberOfGames").append("Number of Games selected: " + filteredList.length);
 });
 
 function sort(){
