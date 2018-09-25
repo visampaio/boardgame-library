@@ -14,19 +14,21 @@ var filteredList = [];
 var selected = [];
 var template = document.getElementById("selectedGames").innerHTML;
 
-file.addEventListener("change", function() {
-  Papa.parse(file.files[0], {
+// file.addEventListener("change", function() {
+  Papa.parse("database.csv", {
+    // download: true,
     header: true,
+    delimiter: "",
     complete: function(results) {
       bgList = results.data;
       splitPlayers(bgList);
   	}
   });
-});
+// });
 
 fullCollection.addEventListener("click", function() {
   document.getElementById("selectedGames").innerHTML = "Number of Games selected: " + bgList.length;
-  for (var i=0; i<bgList.length-1; i++) {
+  for (var i=0; i<bgList.length; i++) {
     document.getElementById("selectedGames").innerHTML += "<img height=200px src='' class='GamePicture'></img>";
     var pictures = document.getElementsByClassName("GamePicture");
     for (var j=0; j<pictures.length; j++) {
@@ -89,11 +91,11 @@ function filter(bgList){
 
 function filterPlayer(bgList){
 
-  for(var i=0; i<bgList.length-1; i++) {
+  for(var i=0; i<bgList.length; i++) {
 
     switch(maxPlayers.checked) {
       case true:
-        if (bgList[i].Players[bgList[i].Players.length-1] == selPlayer.value) {
+        if (bgList[i].Players[bgList[i].Players.length] == selPlayer.value) {
           filteredList.push(bgList[i]);
         }
         break;
