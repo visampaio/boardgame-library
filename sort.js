@@ -14,8 +14,21 @@ var filteredList = [];
 var selected = [];
 var template = document.getElementById("selectedGames").innerHTML;
 
-// file.addEventListener("change", function() {
-  Papa.parse("database.txt", {
+function httpGetAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous
+    xmlHttp.send(null);
+}
+
+httpGetAsync("database.csv", parseMe);
+
+function parseMe(theUrl){
+  Papa.parse(theUrl, {
     download: true,
     header: true,
     // delimiter: "",
@@ -24,7 +37,7 @@ var template = document.getElementById("selectedGames").innerHTML;
       splitPlayers(bgList);
   	}
   });
-// });
+}
 
 fullCollection.addEventListener("click", function() {
   document.getElementById("selectedGames").innerHTML = "Number of Games selected: " + bgList.length;
