@@ -18,7 +18,7 @@ var template = document.getElementById("selectedGames").innerHTML;
   Papa.parse("database.txt", {
     download: true,
     header: true,
-    delimiter: "",
+    // delimiter: "",
     complete: function(results) {
       bgList = results.data;
       splitPlayers(bgList);
