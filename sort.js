@@ -15,7 +15,7 @@ var selected = [];
 var template = document.getElementById("selectedGames").innerHTML;
 
 // file.addEventListener("change", function() {
-  Papa.parse("database.csv", {
+  Papa.parse("https://github.com/visampaio/boardgame-library/blob/master/database.csv", {
     download: true,
     header: true,
     delimiter: "",
