@@ -19,16 +19,18 @@ function httpGetAsync(theUrl, callback)
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp);
+            callback(xmlHttp.responseText);
     }
     xmlHttp.open("GET", theUrl, true); // true for asynchronous
     xmlHttp.send(null);
+    return xmlHttp;
 }
 
-httpGetAsync("database.csv", parseMe);
+function callback(text){console.log("Yay!")}
 
-function parseMe(theUrl){
-  Papa.parse(xmlHttp, {
+var excel = httpGetAsync("database.csv", callback);
+
+  Papa.parse(excel, {
     download: true,
     header: true,
     // delimiter: "",
@@ -37,7 +39,7 @@ function parseMe(theUrl){
       splitPlayers(bgList);
   	}
   });
-}
+
 
 fullCollection.addEventListener("click", function() {
   document.getElementById("selectedGames").innerHTML = "Number of Games selected: " + bgList.length;
