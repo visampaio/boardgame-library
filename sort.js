@@ -15,7 +15,7 @@ var selected = [];
 var template = document.getElementById("selectedGames").innerHTML;
 
 // file.addEventListener("change", function() {
-  Papa.parse("/database.csv", {
+  Papa.parse("database.txt", {
     download: true,
     header: true,
     delimiter: "",
