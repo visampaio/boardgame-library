@@ -19,26 +19,28 @@ function httpGetAsync(theUrl, callback)
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
+            callback(xmlHttp);
     }
     xmlHttp.open("GET", theUrl, true); // true for asynchronous
     xmlHttp.send(null);
-    return xmlHttp;
+    console.log(xmlHttp.responseText);
+    var databaseread = xmlHttp.responseText;
+    return databaseread;
 }
 
 function callback(text){console.log("Yay!")}
 
 var excel = httpGetAsync("database.csv", callback);
 
-  Papa.parse(excel, {
-    download: true,
-    header: true,
-    // delimiter: "",
-    complete: function(results) {
-      bgList = results.data;
-      splitPlayers(bgList);
-  	}
-  });
+  // Papa.parse(excel, {
+  //   // download: true,
+  //   header: true,
+  //   // delimiter: "",
+  //   complete: function(results) {
+  //     bgList = results.data;
+  //     splitPlayers(bgList);
+  // 	}
+  // });
 
 
 fullCollection.addEventListener("click", function() {
