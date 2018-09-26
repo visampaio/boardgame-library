@@ -1,4 +1,3 @@
-const file = document.getElementById('input');
 const selPlayer = document.getElementById('selectPlayer');
 const selLength = document.getElementById('selectLength');
 const selComplex = document.getElementById('selectComplex');
@@ -32,7 +31,18 @@ var template = document.getElementById("selectedGames").innerHTML;
 
 // var excel = httpGetAsync("database.csv", callback);
 
-  Papa.parse("database.csv", {
+  // Papa.parse("database.csv", {
+  //   download: true,
+  //   header: true,
+  //   // delimiter: "",
+  //   complete: function(results) {
+  //     console.log("Yay!");
+  //     bgList = results.data;
+  //     splitPlayers(bgList);
+  // 	}
+  // });
+
+  Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vSK-1NdXaNwkyIZPiKHahN5jC3pckcvaU9PBv1dN-PCJ-aP5x8Iss4ghw5qCwe0KYSbE0Kzclv-5J8q/pub?gid=332499702&single=true&output=csv", {
     download: true,
     header: true,
     // delimiter: "",
@@ -42,6 +52,7 @@ var template = document.getElementById("selectedGames").innerHTML;
       splitPlayers(bgList);
   	}
   });
+
 
 
 fullCollection.addEventListener("click", function() {
