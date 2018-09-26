@@ -31,7 +31,11 @@ var template = document.getElementById("selectedGames").innerHTML;
 //
 // var excel = httpGetAsync("database.csv", callback);
 
-  Papa.parse("database.csv", {
+// var xhr = new XMLHttpRequest();
+// xhr.open('GET', 'https://cors-anywhere.herokuapp.com/https://docs.google.com/spreadsheets/d/e/2PACX-1vSK-1NdXaNwkyIZPiKHahN5jC3pckcvaU9PBv1dN-PCJ-aP5x8Iss4ghw5qCwe0KYSbE0Kzclv-5J8q/pub?gid=332499702&single=true&output=csv');
+// xhr.send()
+
+  Papa.parse("https://cors-anywhere.herokuapp.com/https://docs.google.com/spreadsheets/d/e/2PACX-1vSK-1NdXaNwkyIZPiKHahN5jC3pckcvaU9PBv1dN-PCJ-aP5x8Iss4ghw5qCwe0KYSbE0Kzclv-5J8q/pub?gid=332499702&single=true&output=csv", {
     download: true,
     header: true,
     // delimiter: "",
