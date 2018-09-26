@@ -13,28 +13,9 @@ var filteredList = [];
 var selected = [];
 var template = document.getElementById("selectedGames").innerHTML;
 
-// function httpGetAsync(theUrl, callback)
-// {
-//     var xmlHttp = new XMLHttpRequest();
-//     xmlHttp.onreadystatechange = function() {
-//         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-//             callback(xmlHttp);
-//     }
-//     xmlHttp.open("GET", theUrl, true); // true for asynchronous
-//     xmlHttp.send(null);
-//     console.log(xmlHttp.responseText);
-//     var databaseread = xmlHttp.responseText;
-//     return databaseread;
-// }
-//
-// function callback(text){console.log("Yay!")}
-//
-// var excel = httpGetAsync("database.csv", callback);
 
-// var xhr = new XMLHttpRequest();
-// xhr.open('GET', 'https://cors-anywhere.herokuapp.com/https://docs.google.com/spreadsheets/d/e/2PACX-1vSK-1NdXaNwkyIZPiKHahN5jC3pckcvaU9PBv1dN-PCJ-aP5x8Iss4ghw5qCwe0KYSbE0Kzclv-5J8q/pub?gid=332499702&single=true&output=csv');
-// xhr.send()
-
+// Using Papaparse library to parse a CSV to be filtered.
+// Cors-anywhere is currently used to bypass CORS restrictions in regards to accessing the CSV directly from GDrive.
   Papa.parse("https://cors-anywhere.herokuapp.com/https://docs.google.com/spreadsheets/d/e/2PACX-1vSK-1NdXaNwkyIZPiKHahN5jC3pckcvaU9PBv1dN-PCJ-aP5x8Iss4ghw5qCwe0KYSbE0Kzclv-5J8q/pub?gid=332499702&single=true&output=csv", {
     download: true,
     header: true,
@@ -45,7 +26,7 @@ var template = document.getElementById("selectedGames").innerHTML;
   	}
   });
 
-
+// Button: Show the entire collection
 fullCollection.addEventListener("click", function() {
   document.getElementById("selectedGames").innerHTML = "Number of Games selected: " + bgList.length;
   for (var i=0; i<bgList.length; i++) {
@@ -57,6 +38,7 @@ fullCollection.addEventListener("click", function() {
   }
 });
 
+// Button: Choose a random game based on the current filters
 choose.addEventListener("click", function() {
   filteredList = [];
   document.getElementById("selectedGames").innerHTML = template;
@@ -71,6 +53,7 @@ choose.addEventListener("click", function() {
 
 });
 
+// Button: List all games based on the current filters
 list.addEventListener("click", function() {
   filteredList = [];
   document.getElementById("selectedGames").innerHTML = "<p id='numberOfGames'> </p>";
@@ -85,12 +68,14 @@ list.addEventListener("click", function() {
     document.getElementById("numberOfGames").append("Number of Games selected: " + filteredList.length);
 });
 
+// Randomly pick an item from the array
 function sort(){
   filteredList = filter(bgList);
   selected = filteredList[Math.floor(Math.random() * filteredList.length)];
   return selected;
 }
 
+// Filter CSV array based on selected filters
 function filter(bgList){
    filterPlayer(bgList);
    if(selLength.value != ""){
@@ -109,6 +94,7 @@ function filter(bgList){
    return filteredList;
 }
 
+// Filters
 function filterPlayer(bgList){
 
   for(var i=0; i<bgList.length; i++) {
@@ -180,6 +166,7 @@ function filterPlayed(filteredList){
   return filteredList;
 }
 
+// Split players field into an array
 function splitPlayers(games){
   for(var i=0; i<games.length-1; i++) {
     games[i].Players = games[i].Players.split(",");
