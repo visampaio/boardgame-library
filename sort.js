@@ -101,7 +101,7 @@ function filterPlayer(bgList){
 
     switch(maxPlayers.checked) {
       case true:
-        if (bgList[i].Players[bgList[i].Players.length] == selPlayer.value) {
+        if (bgList[i].Players[bgList[i].Players.length-1] == selPlayer.value) {
           filteredList.push(bgList[i]);
         }
         break;
