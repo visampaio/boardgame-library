@@ -28,12 +28,14 @@ var template = document.getElementById("selectedGames").innerHTML;
 
 // Button: Show the entire collection
 fullCollection.addEventListener("click", function() {
-  document.getElementById("selectedGames").innerHTML = "Number of Games selected: " + bgList.length;
+  document.getElementById("selectedGames").innerHTML = "Number of Games selected: " + bgList.length + "<br>";
   for (var i=0; i<bgList.length; i++) {
-    document.getElementById("selectedGames").innerHTML += "<img height=200px src='' class='GamePicture'></img>";
+    document.getElementById("selectedGames").innerHTML += "<a class='GameLink' href='' target='_blank'><img height=200px src='' class='GamePicture'></img></a>";
     var pictures = document.getElementsByClassName("GamePicture");
+    var gameLink = document.getElementsByClassName("GameLink");
     for (var j=0; j<pictures.length; j++) {
       pictures[j].src=bgList[j].Picture;
+      gameLink[j].href= bgList[j].Link;
     }
   }
 });
@@ -50,7 +52,7 @@ choose.addEventListener("click", function() {
   document.getElementById("GamePlayed").append(selected.Played);
   document.getElementById("GameMode").append(selected.Mode);
   document.getElementById("GamePicture").src=selected.Picture;
-
+  document.getElementById("GameLink").href=selected.Link;
 });
 
 // Button: List all games based on the current filters
@@ -59,10 +61,12 @@ list.addEventListener("click", function() {
   document.getElementById("selectedGames").innerHTML = "<p id='numberOfGames'> </p>";
   console.log(filter(bgList));
   for (var i=0; i<filteredList.length; i++) {
-    document.getElementById("selectedGames").innerHTML += "<img height=200px src='' class='GamePicture'></img>";
+    document.getElementById("selectedGames").innerHTML += "<a class='GameLink' href='' target='_blank'><img height=200px src='' class='GamePicture'></img></a>";
     var pictures = document.getElementsByClassName("GamePicture");
+    var gameLink = document.getElementsByClassName("GameLink");
     for (var j=0; j<pictures.length; j++) {
       pictures[j].src= filteredList[j].Picture;
+      gameLink[j].href= filteredList[j].Link;
     }
   }
     document.getElementById("numberOfGames").append("Number of Games selected: " + filteredList.length);
