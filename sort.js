@@ -7,6 +7,7 @@ const maxPlayers = document.getElementById('maxPlayers');
 const choose = document.getElementById('choose');
 const list = document.getElementById('list');
 const fullCollection = document.getElementById('fullCollection');
+const unplayed = document.getElementById('unplayedGames');
 
 var bgList;
 var filteredList = [];
@@ -36,6 +37,12 @@ fullCollection.addEventListener("click", function() {
     for (var j=0; j<pictures.length; j++) {
       pictures[j].src=bgList[j].Picture;
       gameLink[j].href= bgList[j].Link;
+
+      if(bgList[j].Played == "No" && unplayed.checked) {
+        // Option with yellow outline to represent games unplayed
+        // pictures[j].style='outline: 3px solid yellow; outline-offset: -10px;';
+        pictures[j].style='-webkit-filter: grayscale(100%); filter: grayscale(100%);';
+      }
     }
   }
 });
@@ -62,11 +69,17 @@ list.addEventListener("click", function() {
   console.log(filter(bgList));
   for (var i=0; i<filteredList.length; i++) {
     document.getElementById("selectedGames").innerHTML += "<a class='GameLink' href='' target='_blank'><img height=200px src='' class='GamePicture'></img></a>";
+    // document.getElementById("selectedGames").innerHTML += "<span class='GameContainer'><a class='GameLink' href='' target='_blank'><img height=200px src='' class='GamePicture'></img> <span class='Overlay' style='opacity:0'>New Game</span></a></span>";
     var pictures = document.getElementsByClassName("GamePicture");
     var gameLink = document.getElementsByClassName("GameLink");
+    // var newGame = document.getElementsByClassName("Overlay");
     for (var j=0; j<pictures.length; j++) {
       pictures[j].src= filteredList[j].Picture;
       gameLink[j].href= filteredList[j].Link;
+
+      if(filteredList[j].Played == "No" && unplayed.checked) {
+        pictures[j].style='-webkit-filter: grayscale(100%); filter: grayscale(100%);';
+      }
     }
   }
     document.getElementById("numberOfGames").append("Number of Games selected: " + filteredList.length);
@@ -81,7 +94,12 @@ function sort(){
 
 // Filter CSV array based on selected filters
 function filter(bgList){
+   if(selectPlayer.value != ""){
    filterPlayer(bgList);
+   }
+   else {
+     filteredList = bgList;
+   }
    if(selLength.value != ""){
      filteredList = filterLength(filteredList);
    }

@@ -2,12 +2,14 @@
 <html>
 <head>
   <title>Board Game Library</title>
-  <link rel='icon' href='favicon.ico' type='image/x-icon'/ >
+  <link rel="icon" href="favicon.ico" type="image/x-icon"/ >
+  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <body>
 
   <select id="selectPlayer">
+  <option value="">Number of Players</option>
   <option value="1">1</option>
   <option value="2">2</option>
   <option value="3">3</option>
@@ -45,10 +47,11 @@
 
   <label><input type="checkbox" id="checkNew">New Games Only</label>
   <label><input type="checkbox" id="maxPlayers">Maximum Players Only</label>
+  <label><input type="checkbox" id="unplayedGames" checked>Reveal Unplayed</label>
 
   <button id="choose">Choose a game for me!</button>
   <button id="list">Show me the games!</button>
-  <button id="fullCollection">Show me everything you got! (No Filters)</button>
+  <button id="fullCollection">Show my entire collection! (No Filters)</button>
 
 <div id="selectedGames">
   <p id="numberOfGames"> </p>
