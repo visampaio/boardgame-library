@@ -56,11 +56,12 @@ var picturesHeight = 200;
 fullCollection.addEventListener("click", function() {
   document.getElementById("selectedGames").innerHTML = "Number of Games selected: " + bgList.length + "<br>";
   for (var i=0; i<bgList.length; i++) {
-    document.getElementById("selectedGames").innerHTML += "<a class='GameLink' href='' target='_blank'><img height='' src='' class='GamePicture'></img></a>";
+    document.getElementById("selectedGames").innerHTML += "<a class='GameLink' href='' target='_blank'><img height='' alt='' src='' class='GamePicture'></img></a>";
     var pictures = document.getElementsByClassName("GamePicture");
     var gameLink = document.getElementsByClassName("GameLink");
     for (var j=0; j<pictures.length; j++) {
-      pictures[j].height= picturesHeight;
+      pictures[j].alt=bgList[j].Game;
+      pictures[j].height=picturesHeight;
       pictures[j].src=bgList[j].Picture;
       gameLink[j].href= bgList[j].Link;
 
@@ -87,6 +88,7 @@ choose.addEventListener("click", function() {
   document.getElementById("GamePlayed").append(selected.Played);
   document.getElementById("GameMode").append(selected.Mode);
   picture[0].height=picturesHeight;
+  picture[0].alt=selected.Game;
   picture[0].src=selected.Picture;
   document.getElementById("GameLink").href=selected.Link;
 });
@@ -97,12 +99,13 @@ list.addEventListener("click", function() {
   document.getElementById("selectedGames").innerHTML = "<p id='numberOfGames'> </p>";
   console.log(filter(bgList));
   for (var i=0; i<filteredList.length; i++) {
-    document.getElementById("selectedGames").innerHTML += "<a class='GameLink' href='' target='_blank'><img height='' src='' class='GamePicture'></img></a>";
+    document.getElementById("selectedGames").innerHTML += "<a class='GameLink' href='' target='_blank'><img height=''alt='' src='' class='GamePicture'></img></a>";
     // document.getElementById("selectedGames").innerHTML += "<span class='GameContainer'><a class='GameLink' href='' target='_blank'><img height=200px src='' class='GamePicture'></img> <span class='Overlay' style='opacity:0'>New Game</span></a></span>";
     var pictures = document.getElementsByClassName("GamePicture");
     var gameLink = document.getElementsByClassName("GameLink");
     // var newGame = document.getElementsByClassName("Overlay");
     for (var j=0; j<pictures.length; j++) {
+      pictures[j].alt=filteredList[j].Game;
       pictures[j].height= picturesHeight;
       pictures[j].src= filteredList[j].Picture;
       gameLink[j].href= filteredList[j].Link;
