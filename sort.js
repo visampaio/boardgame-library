@@ -13,7 +13,7 @@ var bgList;
 var filteredList = [];
 var selected = [];
 var template = document.getElementById("selectedGames").innerHTML;
-
+var picturesHeight = 200;
 
 // Using Papaparse library to parse a CSV to be filtered.
 // Cors-anywhere is currently used to bypass CORS restrictions in regards to accessing the CSV directly from GDrive.
@@ -27,14 +27,40 @@ var template = document.getElementById("selectedGames").innerHTML;
   	}
   });
 
+// Accessibility Buttons: Increase, Decrease, and reset Image sizes
+  increaseImg.addEventListener("click", function() {
+    var pictures = document.getElementsByClassName("GamePicture");
+    for (var i=0; i<pictures.length; i++) {
+    pictures[i].height = pictures[i].height*1.1;
+  }
+    picturesHeight = pictures[0].height;
+  });
+
+  decreaseImg.addEventListener("click", function() {
+    var pictures = document.getElementsByClassName("GamePicture");
+    for (var i=0; i<pictures.length; i++) {
+    pictures[i].height = pictures[i].height*0.9;
+  }
+    picturesHeight = pictures[0].height;
+  });
+
+  resetImgSize.addEventListener("click", function() {
+    picturesHeight = 200;
+    var pictures = document.getElementsByClassName("GamePicture");
+    for (var i=0; i<pictures.length; i++) {
+    pictures[i].height = picturesHeight;
+  }
+  });
+
 // Button: Show the entire collection
 fullCollection.addEventListener("click", function() {
   document.getElementById("selectedGames").innerHTML = "Number of Games selected: " + bgList.length + "<br>";
   for (var i=0; i<bgList.length; i++) {
-    document.getElementById("selectedGames").innerHTML += "<a class='GameLink' href='' target='_blank'><img height=200px src='' class='GamePicture'></img></a>";
+    document.getElementById("selectedGames").innerHTML += "<a class='GameLink' href='' target='_blank'><img height='' src='' class='GamePicture'></img></a>";
     var pictures = document.getElementsByClassName("GamePicture");
     var gameLink = document.getElementsByClassName("GameLink");
     for (var j=0; j<pictures.length; j++) {
+      pictures[j].height= picturesHeight;
       pictures[j].src=bgList[j].Picture;
       gameLink[j].href= bgList[j].Link;
 
@@ -49,16 +75,19 @@ fullCollection.addEventListener("click", function() {
 
 // Button: Choose a random game based on the current filters
 choose.addEventListener("click", function() {
+  var picture = document.getElementsByClassName("GamePicture");
   filteredList = [];
   document.getElementById("selectedGames").innerHTML = template;
   console.log(sort(bgList));
+  console.log(document.getElementsByClassName("GamePicture").height);
   document.getElementById("GameName").append(selected.Game);
   document.getElementById("GamePlayers").append(selected.Players);
   document.getElementById("GameTime").append(selected.Time);
   document.getElementById("GameComplexity").append(selected.Complexity);
   document.getElementById("GamePlayed").append(selected.Played);
   document.getElementById("GameMode").append(selected.Mode);
-  document.getElementById("GamePicture").src=selected.Picture;
+  picture[0].height=picturesHeight;
+  picture[0].src=selected.Picture;
   document.getElementById("GameLink").href=selected.Link;
 });
 
@@ -68,12 +97,13 @@ list.addEventListener("click", function() {
   document.getElementById("selectedGames").innerHTML = "<p id='numberOfGames'> </p>";
   console.log(filter(bgList));
   for (var i=0; i<filteredList.length; i++) {
-    document.getElementById("selectedGames").innerHTML += "<a class='GameLink' href='' target='_blank'><img height=200px src='' class='GamePicture'></img></a>";
+    document.getElementById("selectedGames").innerHTML += "<a class='GameLink' href='' target='_blank'><img height='' src='' class='GamePicture'></img></a>";
     // document.getElementById("selectedGames").innerHTML += "<span class='GameContainer'><a class='GameLink' href='' target='_blank'><img height=200px src='' class='GamePicture'></img> <span class='Overlay' style='opacity:0'>New Game</span></a></span>";
     var pictures = document.getElementsByClassName("GamePicture");
     var gameLink = document.getElementsByClassName("GameLink");
     // var newGame = document.getElementsByClassName("Overlay");
     for (var j=0; j<pictures.length; j++) {
+      pictures[j].height= picturesHeight;
       pictures[j].src= filteredList[j].Picture;
       gameLink[j].href= filteredList[j].Link;
 
