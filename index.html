@@ -3,81 +3,91 @@
 <head>
   <title>Board Game Library</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon"/ >
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <body>
 
-  <select id="selectPlayer">
-  <option value="">Number of Players</option>
-  <option value="1">1</option>
-  <option value="2">2</option>
-  <option value="3">3</option>
-  <option value="4">4</option>
-  <option value="5">5</option>
-  <option value="6">6</option>
-  <option value="7">7</option>
-  <option value="8">8+</option>
-  </select>
+  <header>
+    <h1>Boardgame Library</h1>
 
-  <select id="selectLength">
-  <option value="">Length</option>
-  <option value="Filler">Filler (< 15min)</option>
-  <option value="Quick">Quick (< 30min)</option>
-  <option value="Short">Short (1hr)</option>
-  <option value="Average">Average (1h30min)</option>
-  <option value="Long">Long (2h)</option>
-  <option value="Super Long">Super Long (> 2h30)</option>
-  </select>
+    <div class="selectDiv">
+      <select id="selectPlayer">
+        <option value="">Number of Players</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8+</option>
+      </select>
+    </div>
 
-  <select id="selectComplex">
-  <option value="">Complexity</option>
-  <option value="Super Casual">Super Casual</option>
-  <option value="Casual">Casual</option>
-  </select>
+    <div class="selectDiv">
+      <select id="selectLength">
+        <option value="">Length</option>
+        <option value="Filler">Filler (< 15min)</option>
+        <option value="Quick">Quick (< 30min)</option>
+        <option value="Short">Short (1hr)</option>
+        <option value="Average">Average (1h30min)</option>
+        <option value="Long">Long (2h)</option>
+        <option value="Super Long">Super Long (> 2h30)</option>
+      </select>
+    </div>
+    <div class="selectDiv">
+      <select id="selectComplex">
+        <option value="">Complexity</option>
+        <option value="Super Casual">Super Casual</option>
+        <option value="Casual">Casual</option>
+      </select>
+    </div>
 
-  <select id="selectMode">
-  <option value="">Mode</option>
-  <option value="Competitive">Competitive</option>
-  <option value="Cooperative">Cooperative</option>
-  <option value="Team-based">Team-based</option>
-  <option value="Traitor-based">Traitor-based</option>
-  <option value="Storytelling">Storytelling</option>
-  </select>
+    <div class="selectDiv">
+      <select id="selectMode">
+        <option value="">Mode</option>
+        <option value="Competitive">Competitive</option>
+        <option value="Cooperative">Cooperative</option>
+        <option value="Team-based">Team-based</option>
+        <option value="Traitor-based">Traitor-based</option>
+        <option value="Storytelling">Storytelling</option>
+      </select>
+    </div>
+  </header>
 
-  <label><input type="checkbox" id="checkNew">New Games Only</label>
-  <label><input type="checkbox" id="maxPlayers">Maximum Players Only</label>
-  <label><input type="checkbox" id="unplayedGames" checked>Reveal Unplayed</label>
+  <div id="gameFilters">
+    <label><input type="checkbox" id="checkNew">New Games Only</label>
+    <label><input type="checkbox" id="maxPlayers">Maximum Players Only</label>
+    <label><input type="checkbox" id="unplayedGames" checked>Reveal Unplayed</label>
+  </div>
 
-  <button id="choose">Choose a game for me!</button>
-  <button id="list">Show me the games!</button>
-  <button id="fullCollection">Show my entire collection! (No Filters)</button>
+  <div id="searchButtons">
+    <button id="choose">Choose a game for me!</button>
+    <button id="list">Show me the games!</button>
+    <button id="fullCollection">Show my entire collection! (No Filters)</button>
+  </div>
 
-  <button id="increaseImg">Increase images size</button>
-  <button id="decreaseImg">Decrease images size</button>
-  <button id="resetImgSize">Restore images size to default</button>
+  <aside id="settings">
+    <button id="increaseImg">Increase images size</button>
+    <button id="decreaseImg">Decrease images size</button>
+    <button id="resetImgSize">Restore images size to default</button>
+  </aside>
 
-<div id="selectedGames">
-  <p id="numberOfGames"> </p>
-  <a id='GameLink' href='' target='_blank'><img height="" alt="" src="" class='GamePicture'></img></a>
-  <p id="GameName">Title: </p>
-  <p id="GamePlayers">Number of Players: </p>
-  <p id="GameTime">Game Length: </p>
-  <p id="GameComplexity">Game Complexity: </p>
-  <p id="GamePlayed">Previously Played: </p>
-  <p id="GameMode">Game Type: </p>
-
-
-</div>
+  <main id="selectedGames">
+    <p>No games selected at the moment.</p>
+  </main>
 
   <script src="papaparse.min.js"></script>
   <script src="sort.js"></script>
   <script src="https://apis.google.com/js/api.js" type="text/javascript"></script>
-<script type="text/javascript">
+  <script type="text/javascript">
   gapi.load('auth2', function() {
     // Library loaded.
   });
-</script>
+  </script>
 
 </body>
 </html>

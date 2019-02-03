@@ -12,7 +12,7 @@ const unplayed = document.getElementById('unplayedGames');
 var bgList;
 var filteredList = [];
 var selected = [];
-var template = document.getElementById("selectedGames").innerHTML;
+var fullTemplate = "<p id='numberOfGames'></p><a id='GameLink' href='' target='_blank'><img height='' alt='' src='' class='GamePicture'></a><p id='GameName'>Title: </p><p id='GamePlayers'>Number of Players: </p><p id='GameTime'>Game Length: </p><p id='GameComplexity'>Game Complexity: </p><p id='GamePlayed'>Previously Played: </p><p id='GameMode'>Game Type: </p>";
 var picturesHeight = 200;
 
 // Using Papaparse library to parse a CSV to be filtered.
@@ -78,7 +78,7 @@ fullCollection.addEventListener("click", function() {
 choose.addEventListener("click", function() {
   var picture = document.getElementsByClassName("GamePicture");
   filteredList = [];
-  document.getElementById("selectedGames").innerHTML = template;
+  document.getElementById("selectedGames").innerHTML = fullTemplate;
   console.log(sort(bgList));
   console.log(document.getElementsByClassName("GamePicture").height);
   document.getElementById("GameName").append(selected.Game);
@@ -145,7 +145,6 @@ function filter(bgList){
    if(checkNew.checked){
      filteredList = filterPlayed(filteredList);
    }
-
    return filteredList;
 }
 
@@ -173,7 +172,6 @@ function filterPlayer(bgList){
 
 function filterLength(filteredList){
   var filtradinho = [];
-
   for(var i=0; i<filteredList.length; i++) {
     if (filteredList[i].Time == selLength.value) {
         filtradinho.push(filteredList[i]);
@@ -185,13 +183,11 @@ function filterLength(filteredList){
 
 function filterComplex(filteredList){
   var filtradinho = [];
-
   for(var i=0; i<filteredList.length; i++) {
     if (filteredList[i].Complexity == selComplex.value) {
         filtradinho.push(filteredList[i]);
     }
   }
-
   filteredList = filtradinho;
   return filteredList;
 }
@@ -203,20 +199,17 @@ function filterMode(filteredList){
         filtradinho.push(filteredList[i]);
     }
   }
-
   filteredList = filtradinho;
   return filteredList;
 }
 
 function filterPlayed(filteredList){
   var filtradinho = [];
-
   for(var i=0; i<filteredList.length; i++) {
     if (filteredList[i].Played == "No") {
         filtradinho.push(filteredList[i]);
     }
   }
-
   filteredList = filtradinho;
   return filteredList;
 }

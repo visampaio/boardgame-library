@@ -1,22 +1,121 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
 
-/* .GameContainer {
-  /* position: relative; */
-} */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
 
-/* .Overlay {
-  position: relative;
-  /* left: -100; */
-  /* bottom: 0; */
-  /* top: 10px;
-  left: 10px; */
-  background: rgb(0, 0, 0);
-  background: rgba(0, 0, 0, 0.5); /* Black see-through */
-  color: #f1f1f1;
-  width: 10%;
-  /* transition: .5s ease; */
-  opacity:1;
-  color: white;
-  font-size: 20px;
-  padding: 20px;
-  text-align: center;
-} */
+/*-------------------------------
+THEME STYLE
+-------------------------------*/
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+	line-height: 1.5em;
+  width: 80%;
+  margin: 0 auto;
+}
+
+header {
+	overflow: overlay;
+}
+
+i {
+	font-family: "Font Awesome 5 Free";
+	font-weight: 900;
+}
+
+button, select {
+	background-color: #FFF;
+	border: 2px solid #000;
+	padding: 5px;
+}
+
+button {
+	margin-right: 5px;
+	border-radius: 100px;
+}
+
+select {
+	/* Hiding browser arrow */
+	-webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+	color: inherit;
+	float: right;
+	width: 150px;
+}
+
+#selectedGames {
+	margin: 2em 0;
+
+}
+
+.selectDiv {
+	position: relative;
+	float: left;
+	margin-right: 10px;
+}
+
+.selectDiv:after {
+	font-family: "Font Awesome 5 Free";
+	font-weight: 900;
+	content: "\f0dd";
+	right: 11px;
+	position: absolute;
+	pointer-events: none;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 1em 0;
+}
+
+#settings, #gameFilters {
+  margin: 1em 0;
+}
