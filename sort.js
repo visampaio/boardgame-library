@@ -14,6 +14,7 @@ var filteredList = [];
 var selected = [];
 var fullTemplate = "<p id='numberOfGames'></p><a id='GameLink' href='' target='_blank'><img height='' alt='' src='' class='GamePicture'></a><p id='GameName'>Title: </p><p id='GamePlayers'>Number of Players: </p><p id='GameTime'>Game Length: </p><p id='GameComplexity'>Game Complexity: </p><p id='GamePlayed'>Previously Played: </p><p id='GameMode'>Game Type: </p>";
 var picturesHeight = 200;
+var revUnplayedOriginal;
 
 // Using Papaparse library to parse a CSV to be filtered.
 // Cors-anywhere is currently used to bypass CORS restrictions in regards to accessing the CSV directly from GDrive.
@@ -74,6 +75,17 @@ fullCollection.addEventListener("click", function() {
   }
 });
 
+// Preserve 'Reveal Unplayed' Status when selecting 'New Games Only' Option
+checkNew.addEventListener("change", function() {
+  if (checkNew.checked) {
+    revUnplayedOriginal = unplayedGames.checked;
+    unplayedGames.checked = false;
+  }
+  else {
+    unplayedGames.checked = revUnplayedOriginal;
+  }
+})
+
 // Button: Choose a random game based on the current filters
 choose.addEventListener("click", function() {
   var picture = document.getElementsByClassName("GamePicture");
@@ -92,6 +104,8 @@ choose.addEventListener("click", function() {
   picture[0].src=selected.Picture;
   document.getElementById("GameLink").href=selected.Link;
 });
+
+
 
 // Button: List all games based on the current filters
 list.addEventListener("click", function() {
