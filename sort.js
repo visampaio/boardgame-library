@@ -57,15 +57,22 @@ var revUnplayedOriginal;
 fullCollection.addEventListener("click", function() {
   document.getElementById("selectedGames").innerHTML = "Number of Games selected: " + bgList.length + "<br>";
   for (var i=0; i<bgList.length; i++) {
-    document.getElementById("selectedGames").innerHTML += "<a class='GameLink' href='' target='_blank'><img height='' alt='' src='' class='GamePicture'></img></a>";
+    document.getElementById("selectedGames").innerHTML += "<div class='container'><img height='' alt='' src='' class='GamePicture'></img><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div></div></div>";
     var pictures = document.getElementsByClassName("GamePicture");
     var gameLink = document.getElementsByClassName("GameLink");
+    var gameVideoLink = document.getElementsByClassName("GameVideoLink");
     for (var j=0; j<pictures.length; j++) {
       pictures[j].alt=bgList[j].Game;
       pictures[j].height=picturesHeight;
       pictures[j].src=bgList[j].Picture;
       gameLink[j].href= bgList[j].Link;
 
+      if (bgList[j].Video) {
+      gameVideoLink[j].href= bgList[j].Video;
+      }
+      else {
+        gameVideoLink[j].style='visibility:hidden;'
+      }
       if(bgList[j].Played == "No" && unplayed.checked) {
         // Option with yellow outline to represent games unplayed
         // pictures[j].style='outline: 3px solid yellow; outline-offset: -10px;';
