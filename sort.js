@@ -54,7 +54,10 @@ var revUnplayedOriginal;
   });
 
 // Button: Show the entire collection
+
 fullCollection.addEventListener("click", function() {
+  if (bgList) {
+setTimeout(function() {
   document.getElementById("selectedGames").innerHTML = "Number of Games selected: " + bgList.length + "<br>";
   for (var i=0; i<bgList.length; i++) {
     document.getElementById("selectedGames").innerHTML += "<div class='container'><img height='' alt='' src='' class='GamePicture'></img><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div></div></div>";
@@ -80,6 +83,13 @@ fullCollection.addEventListener("click", function() {
       }
     }
   }
+    document.getElementById("loader").style.display = "none";
+}, 1);
+    document.getElementById("selectedGames").innerHTML += "<div id='loader'></div>"
+  }
+  else {
+    document.getElementById("selectedGames").innerHTML += "<div id='error'> <b>Error:</b> The CSV file has not loaded yet. If the CSV file is located online, please wait a few seconds (2 or 3 seconds) and try again.</div>";
+  };
 });
 
 // Preserve 'Reveal Unplayed' Status when selecting 'New Games Only' Option
@@ -95,6 +105,7 @@ checkNew.addEventListener("change", function() {
 
 // Button: Choose a random game based on the current filters
 choose.addEventListener("click", function() {
+  if (bgList) {
   var picture = document.getElementsByClassName("GamePicture");
   var gameLink = document.getElementsByClassName("GameLink");
   var gameVideoLink = document.getElementsByClassName("GameVideoLink");
@@ -119,6 +130,10 @@ choose.addEventListener("click", function() {
   else {
     gameVideoLink[0].style = 'visibility:hidden;'
   }
+}
+else {
+  document.getElementById("selectedGames").innerHTML += "<div id='error'> <b>Error:</b> The CSV file has not loaded yet. If the CSV file is located online, please wait a few seconds (2 or 3 seconds) and try again.</div>";
+};
 });
 
 
@@ -128,32 +143,45 @@ list.addEventListener("click", function() {
   filteredList = [];
   document.getElementById("selectedGames").innerHTML = "<p id='numberOfGames'> </p>";
   console.log(filter(bgList));
-  for (var i=0; i<filteredList.length; i++) {
-    document.getElementById("selectedGames").innerHTML += "<div class='container'><img height='' alt='' src='' class='GamePicture'></img><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div></div></div>";
-    // document.getElementById("selectedGames").innerHTML += "<span class='GameContainer'><a class='GameLink' href='' target='_blank'><img height=200px src='' class='GamePicture'></img> <span class='Overlay' style='opacity:0'>New Game</span></a></span>";
-    var pictures = document.getElementsByClassName("GamePicture");
-    var gameLink = document.getElementsByClassName("GameLink");
-    var gameVideoLink = document.getElementsByClassName("GameVideoLink");
-    // var newGame = document.getElementsByClassName("Overlay");
-    for (var j=0; j<pictures.length; j++) {
-      pictures[j].alt=filteredList[j].Game;
-      pictures[j].height= picturesHeight;
-      pictures[j].src= filteredList[j].Picture;
-      gameLink[j].href= filteredList[j].Link;
 
-      if (filteredList[j].Video) {
-      gameVideoLink[j].href= filteredList[j].Video;
-      }
-      else {
-        gameVideoLink[j].style='visibility:hidden;'
-      }
-      if(filteredList[j].Played == "No" && unplayed.checked) {
-        pictures[j].style='-webkit-filter: grayscale(100%); filter: grayscale(100%);';
+  if (bgList) {
+    setTimeout(function() {
+    for (var i=0; i<filteredList.length; i++) {
+      document.getElementById("selectedGames").innerHTML += "<div class='container'><img height='' alt='' src='' class='GamePicture'></img><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div></div></div>";
+      // document.getElementById("selectedGames").innerHTML += "<span class='GameContainer'><a class='GameLink' href='' target='_blank'><img height=200px src='' class='GamePicture'></img> <span class='Overlay' style='opacity:0'>New Game</span></a></span>";
+      var pictures = document.getElementsByClassName("GamePicture");
+      var gameLink = document.getElementsByClassName("GameLink");
+      var gameVideoLink = document.getElementsByClassName("GameVideoLink");
+      // var newGame = document.getElementsByClassName("Overlay");
+      for (var j=0; j<pictures.length; j++) {
+        pictures[j].alt=filteredList[j].Game;
+        pictures[j].height= picturesHeight;
+        pictures[j].src= filteredList[j].Picture;
+        gameLink[j].href= filteredList[j].Link;
+
+        if (filteredList[j].Video) {
+        gameVideoLink[j].href= filteredList[j].Video;
+        }
+        else {
+          gameVideoLink[j].style='visibility:hidden;'
+        }
+        if(filteredList[j].Played == "No" && unplayed.checked) {
+          pictures[j].style='-webkit-filter: grayscale(100%); filter: grayscale(100%);';
+        }
       }
     }
+      document.getElementById("numberOfGames").append("Number of Games selected: " + filteredList.length);
+      document.getElementById("loader").style.display = "none";
+    }, 1);
+        document.getElementById("selectedGames").innerHTML += "<div id='loader'></div>";
   }
-    document.getElementById("numberOfGames").append("Number of Games selected: " + filteredList.length);
+
+  else {
+    document.getElementById("selectedGames").innerHTML += "<div id='error'> <b>Error:</b> The CSV file has not loaded yet. If the CSV file is located online, please wait a few seconds (2 or 3 seconds) and try again.</div>";
+  };
+
 });
+
 
 // Randomly pick an item from the array
 function sort(){
