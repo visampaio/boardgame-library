@@ -12,7 +12,7 @@ const unplayed = document.getElementById('unplayedGames');
 var bgList;
 var filteredList = [];
 var selected = [];
-var fullTemplate = "<p id='numberOfGames'></p><a id='GameLink' href='' target='_blank'><img height='' alt='' src='' class='GamePicture'></a><p id='GameName'>Title: </p><p id='GamePlayers'>Number of Players: </p><p id='GameTime'>Game Length: </p><p id='GameComplexity'>Game Complexity: </p><p id='GamePlayed'>Previously Played: </p><p id='GameMode'>Game Type: </p>";
+var fullTemplate = "<div class='container'><img height='' alt='' src='' class='GamePicture'><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div></div></div><p id='GameName'>Title: </p><p id='GamePlayers'>Number of Players: </p><p id='GameTime'>Game Length: </p><p id='GameComplexity'>Game Complexity: </p><p id='GamePlayed'>Previously Played: </p><p id='GameMode'>Game Type: </p>";
 var picturesHeight = 200;
 var revUnplayedOriginal;
 
@@ -96,6 +96,8 @@ checkNew.addEventListener("change", function() {
 // Button: Choose a random game based on the current filters
 choose.addEventListener("click", function() {
   var picture = document.getElementsByClassName("GamePicture");
+  var gameLink = document.getElementsByClassName("GameLink");
+  var gameVideoLink = document.getElementsByClassName("GameVideoLink");
   filteredList = [];
   document.getElementById("selectedGames").innerHTML = fullTemplate;
   console.log(sort(bgList));
@@ -106,10 +108,17 @@ choose.addEventListener("click", function() {
   document.getElementById("GameComplexity").append(selected.Complexity);
   document.getElementById("GamePlayed").append(selected.Played);
   document.getElementById("GameMode").append(selected.Mode);
-  picture[0].height=picturesHeight;
-  picture[0].alt=selected.Game;
-  picture[0].src=selected.Picture;
-  document.getElementById("GameLink").href=selected.Link;
+  picture[0].height = picturesHeight;
+  picture[0].alt = selected.Game;
+  picture[0].src = selected.Picture;
+  gameLink[0].href = selected.Link;
+
+  if (selected.Video) {
+  gameVideoLink[0].href = selected.Video;
+  }
+  else {
+    gameVideoLink[0].style = 'visibility:hidden;'
+  }
 });
 
 
@@ -120,10 +129,11 @@ list.addEventListener("click", function() {
   document.getElementById("selectedGames").innerHTML = "<p id='numberOfGames'> </p>";
   console.log(filter(bgList));
   for (var i=0; i<filteredList.length; i++) {
-    document.getElementById("selectedGames").innerHTML += "<a class='GameLink' href='' target='_blank'><img height=''alt='' src='' class='GamePicture'></img></a>";
+    document.getElementById("selectedGames").innerHTML += "<div class='container'><img height='' alt='' src='' class='GamePicture'></img><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div></div></div>";
     // document.getElementById("selectedGames").innerHTML += "<span class='GameContainer'><a class='GameLink' href='' target='_blank'><img height=200px src='' class='GamePicture'></img> <span class='Overlay' style='opacity:0'>New Game</span></a></span>";
     var pictures = document.getElementsByClassName("GamePicture");
     var gameLink = document.getElementsByClassName("GameLink");
+    var gameVideoLink = document.getElementsByClassName("GameVideoLink");
     // var newGame = document.getElementsByClassName("Overlay");
     for (var j=0; j<pictures.length; j++) {
       pictures[j].alt=filteredList[j].Game;
@@ -131,6 +141,12 @@ list.addEventListener("click", function() {
       pictures[j].src= filteredList[j].Picture;
       gameLink[j].href= filteredList[j].Link;
 
+      if (filteredList[j].Video) {
+      gameVideoLink[j].href= filteredList[j].Video;
+      }
+      else {
+        gameVideoLink[j].style='visibility:hidden;'
+      }
       if(filteredList[j].Played == "No" && unplayed.checked) {
         pictures[j].style='-webkit-filter: grayscale(100%); filter: grayscale(100%);';
       }
