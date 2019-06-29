@@ -18,7 +18,7 @@ var revUnplayedOriginal;
 
 // Using Papaparse library to parse a CSV to be filtered.
 // Cors-anywhere is currently used to bypass CORS restrictions in regards to accessing the CSV directly from GDrive.
-  Papa.parse("https://cors.io/?https://docs.google.com/spreadsheets/d/e/2PACX-1vSK-1NdXaNwkyIZPiKHahN5jC3pckcvaU9PBv1dN-PCJ-aP5x8Iss4ghw5qCwe0KYSbE0Kzclv-5J8q/pub?gid=332499702&single=true&output=csv", {
+  Papa.parse("https://cors-anywhere.herokuapp.com/https://docs.google.com/spreadsheets/d/e/2PACX-1vSK-1NdXaNwkyIZPiKHahN5jC3pckcvaU9PBv1dN-PCJ-aP5x8Iss4ghw5qCwe0KYSbE0Kzclv-5J8q/pub?gid=332499702&single=true&output=csv", {
     download: true,
     header: true,
     // delimiter: "",
