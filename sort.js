@@ -3,7 +3,9 @@ const selLength = document.getElementById('selectLength');
 const selComplex = document.getElementById('selectComplex');
 const selMode = document.getElementById('selectMode');
 const checkNew = document.getElementById('checkNew');
+const checkPlayed = document.getElementById('checkPlayed');
 const maxPlayers = document.getElementById('maxPlayers');
+const minPlayers = document.getElementById('minPlayers');
 const choose = document.getElementById('choose');
 const list = document.getElementById('list');
 const fullCollection = document.getElementById('fullCollection');
@@ -95,11 +97,18 @@ setTimeout(function() {
 // Preserve 'Reveal Unplayed' Status when selecting 'New Games Only' Option
 checkNew.addEventListener("change", function() {
   if (checkNew.checked) {
+    checkPlayed.checked = false;
     revUnplayedOriginal = unplayedGames.checked;
     unplayedGames.checked = false;
   }
   else {
     unplayedGames.checked = revUnplayedOriginal;
+  }
+})
+
+checkPlayed.addEventListener("change", function() {
+  if (checkPlayed.checked) {
+    checkNew.checked = false;
   }
 })
 
@@ -207,7 +216,7 @@ function filter(bgList){
    if(selMode.value != ""){
      filteredList = filterMode(filteredList);
    }
-   if(checkNew.checked){
+   if(checkNew.checked || checkPlayed.checked){
      filteredList = filterPlayed(filteredList);
    }
    return filteredList;
@@ -218,20 +227,41 @@ function filterPlayer(bgList){
   if (bgList) {
   for(var i=0; i<bgList.length; i++) {
 
-    switch(maxPlayers.checked) {
+    switch(maxPlayers.checked && minPlayers.checked == false) {
       case true:
         if (bgList[i].Players[bgList[i].Players.length-1] == selPlayer.value) {
           filteredList.push(bgList[i]);
         }
         break;
       case false:
-      for(var j=0; j<bgList[i].Players.length; j++){
-        if (bgList[i].Players[j] == selPlayer.value) {
-          filteredList.push(bgList[i]);
-        }
-      }
         break;
     }
+
+    switch(minPlayers.checked && maxPlayers.checked == false) {
+      case true:
+        if (bgList[i].Players[0] == selPlayer.value) {
+          filteredList.push(bgList[i]);
+        }
+        break;
+      case false:
+        break;
+    }
+
+    switch(maxPlayers.checked && minPlayers.checked) {
+      case true:
+        if (bgList[i].Players[bgList[i].Players.length-1] == selPlayer.value && bgList[i].Players[0] == selPlayer.value) {
+          filteredList.push(bgList[i]);
+        }
+        break;
+      case false:
+        for (var j=0; j<bgList[i].Players.length; j++) {
+          if (bgList[i].Players[j] == selPlayer.value) {
+            filteredList.push(bgList[i]);
+          }
+        }
+        break;
+    }
+
   }
 }
   else {
@@ -275,9 +305,18 @@ function filterMode(filteredList){
 
 function filterPlayed(filteredList){
   var filtradinho = [];
+  if (checkNew.checked) {
   for(var i=0; i<filteredList.length; i++) {
     if (filteredList[i].Played == "No") {
         filtradinho.push(filteredList[i]);
+    }
+  }
+}
+  if (checkPlayed.checked) {
+    for(var i=0; i<filteredList.length; i++) {
+      if (filteredList[i].Played == "Yes") {
+          filtradinho.push(filteredList[i]);
+      }
     }
   }
   filteredList = filtradinho;
