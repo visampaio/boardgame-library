@@ -233,8 +233,8 @@ function filterPlayer(bgList){
           filteredList.push(bgList[i]);
         }
         break;
-      case false:
-        break;
+  default:
+  break;
     }
 
     switch(minPlayers.checked && maxPlayers.checked == false) {
@@ -243,7 +243,7 @@ function filterPlayer(bgList){
           filteredList.push(bgList[i]);
         }
         break;
-      case false:
+        default:
         break;
     }
 
@@ -254,11 +254,18 @@ function filterPlayer(bgList){
         }
         break;
       case false:
+        break;
+    }
+
+    switch(maxPlayers.checked == false && minPlayers.checked == false) {
+      case true:
         for (var j=0; j<bgList[i].Players.length; j++) {
-          if (bgList[i].Players[j] == selPlayer.value) {
-            filteredList.push(bgList[i]);
-          }
-        }
+            if (bgList[i].Players[j] == selPlayer.value) {
+                filteredList.push(bgList[i]);
+              }
+    }
+        break;
+      case false:
         break;
     }
 
@@ -306,14 +313,14 @@ function filterMode(filteredList){
 function filterPlayed(filteredList){
   var filtradinho = [];
   if (checkNew.checked) {
-  for(var i=0; i<filteredList.length; i++) {
+  for (var i=0; i<filteredList.length; i++) {
     if (filteredList[i].Played == "No") {
         filtradinho.push(filteredList[i]);
     }
   }
 }
   if (checkPlayed.checked) {
-    for(var i=0; i<filteredList.length; i++) {
+    for (var i=0; i<filteredList.length; i++) {
       if (filteredList[i].Played == "Yes") {
           filtradinho.push(filteredList[i]);
       }
