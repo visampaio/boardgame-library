@@ -10,13 +10,27 @@ const choose = document.getElementById('choose');
 const list = document.getElementById('list');
 const fullCollection = document.getElementById('fullCollection');
 const unplayed = document.getElementById('unplayedGames');
+const pagination = document.getElementById('pagination');
 
+var segmentadinha = [];
+var pageItems;
+var pageNum = 0;
 var bgList;
 var filteredList = [];
 var selected = [];
 var fullTemplate = "<div class='container'><img height='' alt='' src='' class='GamePicture'><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div></div></div><p id='GameName'>Title: </p><p id='GamePlayers'>Number of Players: </p><p id='GameTime'>Game Length: </p><p id='GameComplexity'>Game Complexity: </p><p id='GamePlayed'>Previously Played: </p><p id='GameMode'>Game Type: </p>";
 var picturesHeight = 200;
 var revUnplayedOriginal;
+
+document.getElementById("pageright").addEventListener("click", function() {
+  pageNum++;
+  listGames();
+});
+
+document.getElementById("pageleft").addEventListener("click", function() {
+  pageNum--;
+  listGames();
+});
 
 // Using Papaparse library to parse a CSV to be filtered.
 // Cors-anywhere is currently used to bypass CORS restrictions in regards to accessing the CSV directly from GDrive.
@@ -146,40 +160,74 @@ else {
 });
 
 
-
 // Button: List all games based on the current filters
 list.addEventListener("click", function() {
+pageNum = 0;
+if (pagination.checked) {
+pageItems= 50;
+listGames();
+}
+else {
+pageItems= 9999;
+listGames();
+};
+});
+
+
+// Function: Organize filtered games into different arrays for display + etc
+function listGames(){
   filteredList = [];
   document.getElementById("selectedGames").innerHTML = "<p id='numberOfGames'> </p>";
-  console.log(filter(bgList));
+  filter(bgList);
+  segmentadinha = [];
+  segmentadinha = createPages(filteredList);
+  console.log(segmentadinha);
+  var segmento = segmentadinha[pageNum];
 
+  // Check if csv has already loaded
   if (bgList) {
+
     setTimeout(function() {
-    for (var i=0; i<filteredList.length; i++) {
+    for (var i=0; i<segmento.length; i++) {
       document.getElementById("selectedGames").innerHTML += "<div class='container'><img height='' alt='' src='' class='GamePicture'></img><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div></div></div>";
-      // document.getElementById("selectedGames").innerHTML += "<span class='GameContainer'><a class='GameLink' href='' target='_blank'><img height=200px src='' class='GamePicture'></img> <span class='Overlay' style='opacity:0'>New Game</span></a></span>";
       var pictures = document.getElementsByClassName("GamePicture");
       var gameLink = document.getElementsByClassName("GameLink");
       var gameVideoLink = document.getElementsByClassName("GameVideoLink");
-      // var newGame = document.getElementsByClassName("Overlay");
       for (var j=0; j<pictures.length; j++) {
-        pictures[j].alt=filteredList[j].Game;
+        pictures[j].alt=segmento[j].Game;
         pictures[j].height= picturesHeight;
-        pictures[j].src= filteredList[j].Picture;
-        gameLink[j].href= filteredList[j].Link;
+        pictures[j].src= segmento[j].Picture;
+        gameLink[j].href= segmento[j].Link;
 
-        if (filteredList[j].Video) {
-        gameVideoLink[j].href= filteredList[j].Video;
+        if (segmento[j].Video) {
+        gameVideoLink[j].href= segmento[j].Video;
         }
         else {
           gameVideoLink[j].style='visibility:hidden;'
         }
-        if(filteredList[j].Played == "No" && unplayed.checked) {
+        if(segmento[j].Played == "No" && unplayed.checked) {
           pictures[j].style='-webkit-filter: grayscale(100%); filter: grayscale(100%);';
         }
       }
     }
-      document.getElementById("numberOfGames").append("Number of Games selected: " + filteredList.length);
+      document.getElementById("numberOfGames").append("Total Number of Games selected: " + filteredList.length);
+      document.getElementById("numberOfGames").append("Games in this Page: " + segmento.length);
+
+      if (segmentadinha[pageNum-1]) {
+        pageleft.style='visibility:visible';
+        console.log("Esquerda");
+      }
+      else {
+        pageleft.style='visibility:hidden';
+      };
+
+      if (segmentadinha[pageNum+1]) {
+        pageright.style='visibility:visible';
+        console.log("Direita");
+      }
+      else {
+        pageright.style='visibility:hidden';
+      };
       document.getElementById("loader").style.display = "none";
     }, 1);
         document.getElementById("selectedGames").innerHTML += "<div id='loader'></div>";
@@ -189,8 +237,21 @@ list.addEventListener("click", function() {
     document.getElementById("selectedGames").innerHTML += "<div id='error'> <b>Error:</b> The CSV file has not loaded yet. If the CSV file is located online, please wait a few seconds (2 or 3 seconds) and try again.</div>";
   };
 
-});
+};
 
+// Create pages when listing more than 50 Games
+function createPages(totalList){
+  var totalLength = totalList.length/pageItems;
+  var pageQuant = 0;
+
+
+  for (var i=0; i<totalLength; i++) {
+    segmentadinha.push(totalList.slice(pageQuant, pageQuant+pageItems));
+    pageQuant = pageQuant+pageItems;
+  }
+
+  return segmentadinha;
+}
 
 // Randomly pick an item from the array
 function sort(){
