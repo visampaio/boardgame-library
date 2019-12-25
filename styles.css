@@ -223,6 +223,6 @@ a {
   to{ bottom:0; opacity:1 }
 }
 
-#pageleft, #pageright {
+#pageleft, #pageright, #paginationItems {
 	visibility: hidden;
 }

@@ -11,6 +11,7 @@ const list = document.getElementById('list');
 const fullCollection = document.getElementById('fullCollection');
 const unplayed = document.getElementById('unplayedGames');
 const pagination = document.getElementById('pagination');
+const paginationItems = document.getElementById('paginationItems');
 
 var segmentadinha = [];
 var pageItems;
@@ -159,12 +160,19 @@ else {
 };
 });
 
-
+pagination.addEventListener("change", function() {
+  if (pagination.checked) {
+    paginationItems.style='visibility:visible';
+  }
+  else {
+    paginationItems.style='visibility:hidden';
+  };
+});
 // Button: List all games based on the current filters
 list.addEventListener("click", function() {
 pageNum = 0;
 if (pagination.checked) {
-pageItems= 50;
+pageItems=Number(paginationItems.value);
 listGames();
 }
 else {
@@ -248,6 +256,7 @@ function createPages(totalList){
   for (var i=0; i<totalLength; i++) {
     segmentadinha.push(totalList.slice(pageQuant, pageQuant+pageItems));
     pageQuant = pageQuant+pageItems;
+    console.log(pageQuant);
   }
 
   return segmentadinha;
