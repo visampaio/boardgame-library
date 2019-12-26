@@ -219,7 +219,10 @@ function listGames(){
       }
     }
       document.getElementById("numberOfGames").append("Total Number of Games selected: " + filteredList.length);
+
+      if (filteredList.length !== segmento.length) {
       document.getElementById("numberOfGames").append("Games in this Page: " + segmento.length);
+};
 
       if (segmentadinha[pageNum-1]) {
         pageleft.style='visibility:visible';
