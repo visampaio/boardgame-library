@@ -42,6 +42,7 @@ document.getElementById("pageleft").addEventListener("click", function() {
     complete: function(results) {
       bgList = results.data;
       splitPlayers(bgList);
+      splitGenres(bgList);
   	}
   });
 
@@ -375,10 +376,13 @@ function filterComplex(filteredList){
 function filterMode(filteredList){
   var filtradinho = [];
   for(var i=0; i<filteredList.length; i++) {
-    if (filteredList[i].Mode == selMode.value) {
-        filtradinho.push(filteredList[i]);
-    }
+    for (var j=0; j<=filteredList[i].Mode.length; j++) {
+      console.log(filteredList[i].Mode[j]);
+      if (filteredList[i].Mode[j] == selMode.value) {
+          filtradinho.push(filteredList[i]);
+    };
   }
+}
   filteredList = filtradinho;
   return filteredList;
 }
@@ -407,5 +411,11 @@ function filterPlayed(filteredList){
 function splitPlayers(games){
   for(var i=0; i<games.length-1; i++) {
     games[i].Players = games[i].Players.split(",");
+  };
+}
+
+function splitGenres(games){
+  for(var i=0; i<games.length-1; i++) {
+    games[i].Mode = games[i].Mode.split(",");
   };
 }
