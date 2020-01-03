@@ -43,6 +43,7 @@ document.getElementById("pageleft").addEventListener("click", function() {
       bgList = results.data;
       splitPlayers(bgList);
       splitGenres(bgList);
+      splitPosition(bgList);
   	}
   });
 
@@ -420,5 +421,12 @@ function splitPlayers(games){
 function splitGenres(games){
   for(var i=0; i<games.length-1; i++) {
     games[i].Mode = games[i].Mode.split(",");
+  };
+}
+
+// Split position field into an array
+function splitPosition(games){
+  for(var i=0; i<games.length-1; i++) {
+    games[i].Position = games[i].Position.split(",");
   };
 }
