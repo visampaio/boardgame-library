@@ -9,13 +9,13 @@
 </head>
 
 <body>
-
+<div id="screenOverlay"></div>
   <header>
     <h1>Boardgame Library</h1>
 
     <div class="selectDiv">
       <select id="selectPlayer">
-        <option value="">Number of Players</option>
+        <option value="">Player Count: Any</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -31,7 +31,7 @@
 
     <div class="selectDiv">
       <select id="selectLength">
-        <option value="">Length</option>
+        <option value="">Length: Any</option>
         <option value="Filler">Filler (< 15min)</option>
         <option value="Quick">Quick (< 30min)</option>
         <option value="Short">Short (1hr)</option>
@@ -43,7 +43,7 @@
 
     <div class="selectDiv">
       <select id="selectComplex">
-        <option value="">Complexity</option>
+        <option value="">Complexity: Any</option>
         <option value="Super Casual">Super Casual</option>
         <option value="Casual">Casual</option>
         <option value="Medium">Medium</option>
@@ -54,7 +54,7 @@
 
     <div class="selectDiv">
       <select id="selectMode">
-        <option value="">Mode</option>
+        <option value="">Mode: Any</option>
         <option value="Competitive">Competitive</option>
         <option value="Cooperative">Cooperative</option>
         <option value="Team-based">Team-based</option>
@@ -69,14 +69,13 @@
     <label><input type="checkbox" id="minPlayers">Minimum Players Only</label>
     <label><input type="checkbox" id="maxPlayers">Maximum Players Only</label>
     <label><input type="checkbox" id="unplayedGames" checked>Reveal Unplayed</label>
-    <label><input type="checkbox" id="pagination">Pagination?</label>
-    <label><input type="text" value="50" id="paginationItems">Items per Page</label>
+    <p><label><input type="checkbox" id="pagination" checked>Pagination?</label>
+    <label id="paginationLabel"><input type="text" value="50" id="paginationItems">Items per Page</label></p>
   </div>
 
   <div id="searchButtons">
-    <button id="choose">Choose a game for me!</button>
-    <button id="list">Show me the games!</button>
-    <button id="fullCollection">Show my entire collection! <b>(No Filters)</b></button>
+    <button title="Picks a random game from the collection considering the current selected filters." id="choose">Choose a game for me!</button>
+    <button title="Shows all games from the collection considering the current selected filters." id="list">Show me the games!</button>
   </div>
 
   <aside id="settings">
@@ -91,6 +90,8 @@
   <main id="selectedGames">
     <p>No games selected at the moment.</p>
   </main>
+  <div id="gamesLocationText">   </div>
+  <div id="gamesLocation">   </div>
 
   <script src="papaparse.min.js"></script>
   <script src="sort.js"></script>

@@ -19,7 +19,7 @@ var pageNum = 0;
 var bgList;
 var filteredList = [];
 var selected = [];
-var fullTemplate = "<div class='container'><img height='' alt='' src='' class='GamePicture'><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div></div></div><p id='GameName'>Title: </p><p id='GamePlayers'>Number of Players: </p><p id='GameTime'>Game Length: </p><p id='GameComplexity'>Game Complexity: </p><p id='GamePlayed'>Previously Played: </p><p id='GameMode'>Game Type: </p>";
+var fullTemplate = "<div class='container'><img height='' alt='' src='' class='GamePicture'><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div><div class='linkA'><a class='GamePlace' href='javascript:void(0)'><img class='logos' src='logos/faind.png' /></a></div></div></div><p id='GameName'>Title: </p><p id='GamePlayers'>Number of Players: </p><p id='GameTime'>Game Length: </p><p id='GameComplexity'>Game Complexity: </p><p id='GamePlayed'>Previously Played: </p><p id='GameMode'>Game Type: </p><p id='GamePosition'>Game Location: </p>";
 var picturesHeight = 200;
 var revUnplayedOriginal;
 
@@ -72,45 +72,6 @@ document.getElementById("pageleft").addEventListener("click", function() {
   }
   });
 
-// Button: Show the entire collection
-
-fullCollection.addEventListener("click", function() {
-  if (bgList) {
-setTimeout(function() {
-  document.getElementById("selectedGames").innerHTML = "Number of Games selected: " + bgList.length + "<br>";
-  for (var i=0; i<bgList.length; i++) {
-    document.getElementById("selectedGames").innerHTML += "<div class='container'><img height='' alt='' src='' class='GamePicture'></img><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div></div></div>";
-    var pictures = document.getElementsByClassName("GamePicture");
-    var gameLink = document.getElementsByClassName("GameLink");
-    var gameVideoLink = document.getElementsByClassName("GameVideoLink");
-    for (var j=0; j<pictures.length; j++) {
-      pictures[j].alt=bgList[j].Game;
-      pictures[j].height=picturesHeight;
-      pictures[j].src=bgList[j].Picture;
-      gameLink[j].href= bgList[j].Link;
-
-      if (bgList[j].Video) {
-      gameVideoLink[j].href= bgList[j].Video;
-      }
-      else {
-        gameVideoLink[j].style='visibility:hidden;'
-      }
-      if(bgList[j].Played == "No" && unplayed.checked) {
-        // Option with yellow outline to represent games unplayed
-        // pictures[j].style='outline: 3px solid yellow; outline-offset: -10px;';
-        pictures[j].style='-webkit-filter: grayscale(100%); filter: grayscale(100%);';
-      }
-    }
-  }
-    document.getElementById("loader").style.display = "none";
-}, 1);
-    document.getElementById("selectedGames").innerHTML += "<div id='loader'></div>"
-  }
-  else {
-    document.getElementById("selectedGames").innerHTML += "<div id='error'> <b>Error:</b> The CSV file has not loaded yet. If the CSV file is located online, please wait a few seconds (2 or 3 seconds) and try again.</div>";
-  };
-});
-
 // Preserve 'Reveal Unplayed' Status when selecting 'New Games Only' Option
 checkNew.addEventListener("change", function() {
   if (checkNew.checked) {
@@ -135,6 +96,7 @@ choose.addEventListener("click", function() {
   var picture = document.getElementsByClassName("GamePicture");
   var gameLink = document.getElementsByClassName("GameLink");
   var gameVideoLink = document.getElementsByClassName("GameVideoLink");
+  var gamesPosition = document.getElementsByClassName("GamePlace");
   filteredList = [];
   document.getElementById("selectedGames").innerHTML = fullTemplate;
   console.log(sort(bgList));
@@ -145,10 +107,12 @@ choose.addEventListener("click", function() {
   document.getElementById("GameComplexity").append(selected.Complexity);
   document.getElementById("GamePlayed").append(selected.Played);
   document.getElementById("GameMode").append(selected.Mode);
+  document.getElementById("GamePosition").append(selected.Position);
   picture[0].height = picturesHeight;
   picture[0].alt = selected.Game;
   picture[0].src = selected.Picture;
   gameLink[0].href = selected.Link;
+  gamesPosition[0].id = selected.Game;
 
   if (selected.Video) {
   gameVideoLink[0].href = selected.Video;
@@ -164,10 +128,12 @@ else {
 
 pagination.addEventListener("change", function() {
   if (pagination.checked) {
-    paginationItems.style='visibility:visible';
+    paginationItems.style='display:inline';
+    paginationLabel.style='display:inline';
   }
   else {
-    paginationItems.style='visibility:hidden';
+    paginationItems.style='display:none';
+    paginationLabel.style='display:none';
   };
 });
 // Button: List all games based on the current filters
@@ -202,21 +168,26 @@ function listGames(){
 
     setTimeout(function() {
     for (var i=0; i<segmento.length; i++) {
-      document.getElementById("selectedGames").innerHTML += "<div class='container'><img height='' alt='' src='' class='GamePicture'></img><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div></div></div>";
+      document.getElementById("selectedGames").innerHTML += "<div class='container'><img height='' alt='' src='' class='GamePicture'></img><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div><div class='linkA'><a class='GamePlace' href='javascript:void(0)'><img class='logos' src='logos/faind.png' /></a></div></div></div>";
       var pictures = document.getElementsByClassName("GamePicture");
       var gameLink = document.getElementsByClassName("GameLink");
       var gameVideoLink = document.getElementsByClassName("GameVideoLink");
+      var gamePlace = document.getElementsByClassName("GamePlace");
       for (var j=0; j<pictures.length; j++) {
         pictures[j].alt=segmento[j].Game;
         pictures[j].height= picturesHeight;
         pictures[j].src= segmento[j].Picture;
         gameLink[j].href= segmento[j].Link;
+        gamePlace[j].id = segmento[j].Game;
+        gamePlace[j].addEventListener("click", function() {
+          findGamePosition(this.id);
+        });
 
         if (segmento[j].Video) {
         gameVideoLink[j].href= segmento[j].Video;
         }
         else {
-          gameVideoLink[j].style='visibility:hidden;'
+          gameVideoLink[j].style='display:none;'
         }
         if(segmento[j].Played == "No" && unplayed.checked) {
           pictures[j].style='-webkit-filter: grayscale(100%); filter: grayscale(100%);';
