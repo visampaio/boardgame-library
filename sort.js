@@ -33,20 +33,6 @@ document.getElementById("pageleft").addEventListener("click", function() {
   listGames();
 });
 
-// Using Papaparse library to parse a CSV to be filtered.
-// Cors-anywhere is currently used to bypass CORS restrictions in regards to accessing the CSV directly from GDrive.
-  Papa.parse("https://cors-anywhere.herokuapp.com/https://docs.google.com/spreadsheets/d/e/2PACX-1vSK-1NdXaNwkyIZPiKHahN5jC3pckcvaU9PBv1dN-PCJ-aP5x8Iss4ghw5qCwe0KYSbE0Kzclv-5J8q/pub?gid=332499702&single=true&output=csv", {
-    download: true,
-    header: true,
-    // delimiter: "",
-    complete: function(results) {
-      bgList = results.data;
-      splitPlayers(bgList);
-      splitGenres(bgList);
-      splitPosition(bgList);
-  	}
-  });
-
 // Accessibility Buttons: Increase, Decrease, and reset Image sizes
   increaseImg.addEventListener("click", function() {
     var pictures = document.getElementsByClassName("GamePicture");
@@ -409,24 +395,4 @@ function filterPlayed(filteredList){
   }
   filteredList = filtradinho;
   return filteredList;
-}
-
-// Split players field into an array
-function splitPlayers(games){
-  for(var i=0; i<games.length-1; i++) {
-    games[i].Players = games[i].Players.split(",");
-  };
-}
-
-function splitGenres(games){
-  for(var i=0; i<games.length-1; i++) {
-    games[i].Mode = games[i].Mode.split(",");
-  };
-}
-
-// Split position field into an array
-function splitPosition(games){
-  for(var i=0; i<games.length-1; i++) {
-    games[i].Position = games[i].Position.split(",");
-  };
 }
