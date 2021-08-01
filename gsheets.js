@@ -28,20 +28,20 @@ function parseSheet() {
 
 function Game(game) {
   this.Game = game[0];
-  this.Players = splitArray(game[1]);
+  this.Players = splitArray(game[1], ", ");
   this.Time = game[2];
   this.Complexity = game[3];
   this.Played = game[4];
-  this.Mode = splitArray(game[5]);
+  this.Mode = splitArray(game[5], ", ");
   this.Picture = game[6];
   this.Link = game[7];
   this.Video = game[8];
-  this.Position = splitArray(game[9]);
+  this.Position = splitArray(game[9], ",");
 }
 
-function splitArray(array) {
+function splitArray(array, comma) {
   if (array) {
-    return (array.length > 1) ? array.split(", ") : array;
+    return (array.length > 1) ? array.split(comma) : array;
   } else {return "";}
 }
 
