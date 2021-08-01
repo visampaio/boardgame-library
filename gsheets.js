@@ -41,7 +41,7 @@ function Game(game) {
 
 function splitArray(array) {
   if (array) {
-    return (array.length > 1) ? array.split(",") : array;
+    return (array.length > 1) ? array.split(", ") : array;
   } else {return "";}
 }
 
