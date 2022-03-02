@@ -19,7 +19,7 @@ var pageNum = 0;
 var bgList;
 var filteredList = [];
 var selected = [];
-var fullTemplate = "<div class='container'><img height='' alt='' src='' class='GamePicture'><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div></div></div><p id='GameName'>Title: </p><p id='GamePlayers'>Number of Players: </p><p id='GameTime'>Game Length: </p><p id='GameComplexity'>Game Complexity: </p><p id='GamePlayed'>Previously Played: </p><p id='GameMode'>Game Type: </p>";
+var fullTemplate = "<div class='container'><img height='' alt='' src='' class='GamePicture'><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div></div></div><p id='GameName'>Title: </p><p id='GamePlayers'>Number of Players: </p><p id='GameTime'>Game Length: </p><p id='GameComplexity'>Game Complexity: </p><p id='GamePlayed'>Previously Played: </p><p id='GameMode'>Game Type: </p><p id='GameLocation'>Game Location: </p>";
 var picturesHeight = 200;
 var revUnplayedOriginal;
 
@@ -131,6 +131,7 @@ choose.addEventListener("click", function() {
   document.getElementById("GameComplexity").append(selected.Complexity);
   document.getElementById("GamePlayed").append(selected.Played);
   document.getElementById("GameMode").append(selected.Mode);
+  document.getElementById("GameLocation").append(selected.Position);
   picture[0].height = picturesHeight;
   picture[0].alt = selected.Game;
   picture[0].src = selected.Picture;
