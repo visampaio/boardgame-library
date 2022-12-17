@@ -8,7 +8,6 @@ const maxPlayers = document.getElementById('maxPlayers');
 const minPlayers = document.getElementById('minPlayers');
 const choose = document.getElementById('choose');
 const list = document.getElementById('list');
-const fullCollection = document.getElementById('fullCollection');
 const unplayed = document.getElementById('unplayedGames');
 const pagination = document.getElementById('pagination');
 const paginationItems = document.getElementById('paginationItems');
@@ -57,45 +56,6 @@ document.getElementById("pageleft").addEventListener("click", function() {
     pictures[i].height = picturesHeight;
   }
   });
-
-// Button: Show the entire collection
-
-fullCollection.addEventListener("click", function() {
-  if (bgList) {
-setTimeout(function() {
-  document.getElementById("selectedGames").innerHTML = "Number of Games selected: " + bgList.length + "<br>";
-  for (var i=0; i<bgList.length; i++) {
-    document.getElementById("selectedGames").innerHTML += "<div class='container'><img height='' alt='' src='' class='GamePicture'></img><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div></div></div>";
-    var pictures = document.getElementsByClassName("GamePicture");
-    var gameLink = document.getElementsByClassName("GameLink");
-    var gameVideoLink = document.getElementsByClassName("GameVideoLink");
-    for (var j=0; j<pictures.length; j++) {
-      pictures[j].alt=bgList[j].Game;
-      pictures[j].height=picturesHeight;
-      pictures[j].src=bgList[j].Picture;
-      gameLink[j].href= bgList[j].Link;
-
-      if (bgList[j].Video) {
-      gameVideoLink[j].href= bgList[j].Video;
-      }
-      else {
-        gameVideoLink[j].style='visibility:hidden;'
-      }
-      if(bgList[j].Played == "No" && unplayed.checked) {
-        // Option with yellow outline to represent games unplayed
-        // pictures[j].style='outline: 3px solid yellow; outline-offset: -10px;';
-        pictures[j].style='-webkit-filter: grayscale(100%); filter: grayscale(100%);';
-      }
-    }
-  }
-    document.getElementById("loader").style.display = "none";
-}, 1);
-    document.getElementById("selectedGames").innerHTML += "<div id='loader'></div>"
-  }
-  else {
-    document.getElementById("selectedGames").innerHTML += "<div id='error'> <b>Error:</b> The CSV file has not loaded yet. If the CSV file is located online, please wait a few seconds (2 or 3 seconds) and try again.</div>";
-  };
-});
 
 // Preserve 'Reveal Unplayed' Status when selecting 'New Games Only' Option
 checkNew.addEventListener("change", function() {
