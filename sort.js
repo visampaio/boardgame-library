@@ -11,6 +11,7 @@ const list = document.getElementById('list');
 const unplayed = document.getElementById('unplayedGames');
 const pagination = document.getElementById('pagination');
 const paginationItems = document.getElementById('paginationItems');
+const itemsperpage = document.getElementById('itemsperpage');
 
 var segmentadinha = [];
 var pageItems;
@@ -111,10 +112,10 @@ else {
 
 pagination.addEventListener("change", function() {
   if (pagination.checked) {
-    paginationItems.style='visibility:visible';
+    itemsperpage.style='display:inline';
   }
   else {
-    paginationItems.style='visibility:hidden';
+    itemsperpage.style='display:none';
   };
 });
 // Button: List all games based on the current filters
