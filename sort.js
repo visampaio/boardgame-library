@@ -133,7 +133,6 @@ listGames(bgList);
 // Function: Organize filtered games into different arrays for display + etc
 function listGames(list){
   filteredList = [];
-  document.getElementById("selectedGames").innerHTML = "<p id='numberOfGames'> </p>";
   filter(list);
   segmentadinha = [];
   segmentadinha = createPages(filteredList);
@@ -144,28 +143,31 @@ function listGames(list){
   }
   // Check if csv has already loaded
   if (filteredList.length > 0) {
+    document.getElementById("selectedGames").innerHTML = "<p>Total Number of Games selected: " + filteredList.length + "</p>";
+    if (filteredList.length !== segmento.length) {
+      document.getElementById("selectedGames").innerHTML += "<p>Games in this Page: " + segmento.length + "</p>";
+    };
 
-    setTimeout(function() {
-    const htmlString = segmento.map((item) => {
-      return `
-      <div class='container'>
-        <img height='${picturesHeight}' alt='${item.Game}' src='${item.Picture}' class='GamePicture' style='${setGrayscale(item.Played)}'></img>
-        <div class='overlay'>
-          <div class='linkA'>
-            <a class='GameLink' href='${item.Link}' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a>
+    const htmlString = (function() {
+      let string = "";
+      for (let z=0; z < segmento.length; z++) {
+        string += `
+        <div class='container'>
+          <img height='${picturesHeight}' alt='${segmento[z].Game}' src='${segmento[z].Picture}' class='GamePicture' style='${setGrayscale(segmento[z].Played)}'></img>
+          <div class='overlay'>
+            <div class='linkA'>
+              <a class='GameLink' href='${segmento[z].Link}' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a>
+            </div>
+            <div class='linkA'><a class='GameVideoLink' href='${setVideoURL(segmento[z].Video)}' target='_blank' style='${setVideoVisibility(segmento[z].Video)}'>
+              <img class='logos' src='logos/watchitplayed-original.jpeg' /></a>
+            </div>
           </div>
-          <div class='linkA'><a class='GameVideoLink' href='${setVideoURL(item.Video)}' target='_blank' style='${setVideoVisibility(item.Video)}'>
-            <img class='logos' src='logos/watchitplayed-original.jpeg' /></a>
-          </div>
-        </div>
-      </div>`;
-    }).join('');
+        </div>`
+      }
+      return string;
+    })();
+
       document.getElementById("selectedGames").innerHTML += htmlString;
-      document.getElementById("numberOfGames").append("Total Number of Games selected: " + filteredList.length);
-
-      if (filteredList.length !== segmento.length) {
-      document.getElementById("numberOfGames").append("Games in this Page: " + segmento.length);
-};
 
       if (segmentadinha[pageNum-1]) {
         pageleft.style='visibility:visible';
@@ -181,7 +183,6 @@ function listGames(list){
         pageright.style='visibility:hidden';
       };
       //document.getElementById("loader").style.display = "none";
-    }, 1);
         //document.getElementById("selectedGames").innerHTML += "<div id='loader'></div>";
   }
 
