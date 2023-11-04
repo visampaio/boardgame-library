@@ -72,7 +72,7 @@ i {
 	font-weight: 900;
 }
 
-button, select {
+button, select, input {
 	background-color: #FFF;
 	border: 2px solid #000;
 	padding: 5px;
@@ -94,6 +94,13 @@ select {
 	width: 150px;
 }
 
+::placeholder {
+	color: #000;
+	opacity: 1; /* Firefox */
+  }
+
+:-ms-input-placeholder {color: #000;}
+
 #selectedGames {
 	margin: 2em 0;
 
@@ -112,6 +119,10 @@ select {
 	right: 11px;
 	position: absolute;
 	pointer-events: none;
+}
+
+.noArrow:after {
+	content: none;
 }
 
 h1 {

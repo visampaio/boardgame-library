@@ -1,3 +1,4 @@
+const searchBar = document.getElementById('searchBar');
 const selPlayer = document.getElementById('selectPlayer');
 const selLength = document.getElementById('selectLength');
 const selComplex = document.getElementById('selectComplex');
@@ -25,12 +26,12 @@ var revUnplayedOriginal;
 
 document.getElementById("pageright").addEventListener("click", function() {
   pageNum++;
-  listGames();
+  listGames(bgList);
 });
 
 document.getElementById("pageleft").addEventListener("click", function() {
   pageNum--;
-  listGames();
+  listGames(bgList);
 });
 
 // Accessibility Buttons: Increase, Decrease, and reset Image sizes
@@ -122,26 +123,23 @@ pagination.addEventListener("change", function() {
 list.addEventListener("click", function() {
 pageNum = 0;
 if (pagination.checked) {
-pageItems=Number(paginationItems.value);
-listGames();
+  pageItems=Number(paginationItems.value);
 }
-else {
-pageItems= 9999;
-listGames();
-};
+else {pageItems= 9999;};
+listGames(bgList);
 });
 
 
 // Function: Organize filtered games into different arrays for display + etc
-function listGames(){
+function listGames(list){
   filteredList = [];
   document.getElementById("selectedGames").innerHTML = "<p id='numberOfGames'> </p>";
-  filter(bgList);
+  filter(list);
   segmentadinha = [];
   segmentadinha = createPages(filteredList);
   var segmento = segmentadinha[pageNum];
 
-  if (bgList == false) {
+  if (list == false) {
     document.getElementById("selectedGames").innerHTML += "<div id='error'> <b>Error:</b> The CSV file has not loaded yet. If the CSV file is located online, please wait a few seconds (2 or 3 seconds) and try again.</div>";
   }
   // Check if csv has already loaded
@@ -171,7 +169,6 @@ function listGames(){
 
       if (segmentadinha[pageNum-1]) {
         pageleft.style='visibility:visible';
-        console.log("Esquerda");
       }
       else {
         pageleft.style='visibility:hidden';
@@ -234,12 +231,13 @@ function sort(){
 }
 
 // Filter CSV array based on selected filters
-function filter(bgList){
+function filter(gameList){
+  filteredList = gameList;
+  if (searchBar.value.length >= 2) {
+    filteredList = textSearch(searchBar.value);
+  }
    if(selectPlayer.value != ""){
-   filterPlayer(bgList);
-   }
-   else {
-     filteredList = bgList;
+   filterPlayer(filteredList);
    }
    if(selLength.value != ""){
      filteredList = filterLength(filteredList);
@@ -257,14 +255,14 @@ function filter(bgList){
 }
 
 // Filters
-function filterPlayer(bgList){
-  if (bgList) {
-  for(var i=0; i<bgList.length; i++) {
+function filterPlayer(gameList){
+  if (gameList) {
+  for(var i=0; i<gameList.length; i++) {
 
     switch(maxPlayers.checked && minPlayers.checked == false) {
       case true:
-        if (bgList[i].Players[bgList[i].Players.length-1] == selPlayer.value) {
-          filteredList.push(bgList[i]);
+        if (gameList[i].Players[gameList[i].Players.length-1] == selPlayer.value) {
+          filteredList.push(gameList[i]);
         }
         break;
   default:
@@ -273,8 +271,8 @@ function filterPlayer(bgList){
 
     switch(minPlayers.checked && maxPlayers.checked == false) {
       case true:
-        if (bgList[i].Players[0] == selPlayer.value) {
-          filteredList.push(bgList[i]);
+        if (gameList[i].Players[0] == selPlayer.value) {
+          filteredList.push(gameList[i]);
         }
         break;
         default:
@@ -283,8 +281,8 @@ function filterPlayer(bgList){
 
     switch(maxPlayers.checked && minPlayers.checked) {
       case true:
-        if (bgList[i].Players[bgList[i].Players.length-1] == selPlayer.value && bgList[i].Players[0] == selPlayer.value) {
-          filteredList.push(bgList[i]);
+        if (gameList[i].Players[gameList[i].Players.length-1] == selPlayer.value && gameList[i].Players[0] == selPlayer.value) {
+          filteredList.push(gameList[i]);
         }
         break;
       case false:
@@ -293,9 +291,9 @@ function filterPlayer(bgList){
 
     switch(maxPlayers.checked == false && minPlayers.checked == false) {
       case true:
-        for (var j=0; j<bgList[i].Players.length; j++) {
-            if (bgList[i].Players[j] == selPlayer.value) {
-                filteredList.push(bgList[i]);
+        for (var j=0; j<gameList[i].Players.length; j++) {
+            if (gameList[i].Players[j] == selPlayer.value) {
+                filteredList.push(gameList[i]);
               }
     }
         break;
@@ -366,3 +364,20 @@ function filterPlayed(filteredList){
   filteredList = filtradinho;
   return filteredList;
 }
+
+// List all games based on current filters + text search
+function textSearch(text) {
+  const searchString = text.toLowerCase();
+  let searchResult = bgList.filter((item) => {
+    return item.Game.toLowerCase().includes(searchString);
+  })
+  return searchResult;
+}
+
+searchBar.addEventListener('keyup', () => {
+  if (pagination.checked) {
+    pageItems=Number(paginationItems.value);
+  }
+  else {pageItems= 9999;};
+  listGames(bgList);
+});
