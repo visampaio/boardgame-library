@@ -180,9 +180,9 @@ function listGames(list){
       else {
         pageright.style='visibility:hidden';
       };
-      document.getElementById("loader").style.display = "none";
+      //document.getElementById("loader").style.display = "none";
     }, 1);
-        document.getElementById("selectedGames").innerHTML += "<div id='loader'></div>";
+        //document.getElementById("selectedGames").innerHTML += "<div id='loader'></div>";
   }
 
   else {
