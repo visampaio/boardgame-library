@@ -139,7 +139,6 @@ function listGames(){
   filter(bgList);
   segmentadinha = [];
   segmentadinha = createPages(filteredList);
-  console.log(segmentadinha);
   var segmento = segmentadinha[pageNum];
 
   if (bgList == false) {
@@ -149,28 +148,21 @@ function listGames(){
   if (filteredList.length > 0) {
 
     setTimeout(function() {
-    for (var i=0; i<segmento.length; i++) {
-      document.getElementById("selectedGames").innerHTML += "<div class='container'><img height='' alt='' src='' class='GamePicture'></img><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div></div></div>";
-      var pictures = document.getElementsByClassName("GamePicture");
-      var gameLink = document.getElementsByClassName("GameLink");
-      var gameVideoLink = document.getElementsByClassName("GameVideoLink");
-      for (var j=0; j<pictures.length; j++) {
-        pictures[j].alt=segmento[j].Game;
-        pictures[j].height= picturesHeight;
-        pictures[j].src= segmento[j].Picture;
-        gameLink[j].href= segmento[j].Link;
-
-        if (segmento[j].Video) {
-        gameVideoLink[j].href= segmento[j].Video;
-        }
-        else {
-          gameVideoLink[j].style='visibility:hidden;'
-        }
-        if(segmento[j].Played == "No" && unplayed.checked) {
-          pictures[j].style='-webkit-filter: grayscale(100%); filter: grayscale(100%);';
-        }
-      }
-    }
+    const htmlString = segmento.map((item) => {
+      return `
+      <div class='container'>
+        <img height='${picturesHeight}' alt='${item.Game}' src='${item.Picture}' class='GamePicture' style='${setGrayscale(item.Played)}'></img>
+        <div class='overlay'>
+          <div class='linkA'>
+            <a class='GameLink' href='${item.Link}' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a>
+          </div>
+          <div class='linkA'><a class='GameVideoLink' href='${setVideoURL(item.Video)}' target='_blank' style='${setVideoVisibility(item.Video)}'>
+            <img class='logos' src='logos/watchitplayed-original.jpeg' /></a>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+      document.getElementById("selectedGames").innerHTML += htmlString;
       document.getElementById("numberOfGames").append("Total Number of Games selected: " + filteredList.length);
 
       if (filteredList.length !== segmento.length) {
@@ -187,7 +179,6 @@ function listGames(){
 
       if (segmentadinha[pageNum+1]) {
         pageright.style='visibility:visible';
-        console.log("Direita");
       }
       else {
         pageright.style='visibility:hidden';
@@ -203,6 +194,24 @@ function listGames(){
 
 };
 
+function setGrayscale(playedStatus) {
+  if(playedStatus == "No" && unplayed.checked) {
+    return '-webkit-filter: grayscale(100%); filter: grayscale(100%);';
+  }
+}
+
+function setVideoURL(videoLink) {
+  if(videoLink) {
+    return videoLink;
+  }
+}
+
+function setVideoVisibility(videoLink) {
+  if(!videoLink) {
+    return 'visibility:hidden;';
+  }
+}
+
 // Create pages when listing more than 50 Games
 function createPages(totalList){
   var totalLength = totalList.length/pageItems;
@@ -212,7 +221,6 @@ function createPages(totalList){
   for (var i=0; i<totalLength; i++) {
     segmentadinha.push(totalList.slice(pageQuant, pageQuant+pageItems));
     pageQuant = pageQuant+pageItems;
-    console.log(pageQuant);
   }
 
   return segmentadinha;
