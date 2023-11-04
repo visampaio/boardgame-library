@@ -238,7 +238,7 @@ function filter(gameList){
     filteredList = textSearch(searchBar.value);
   }
    if(selectPlayer.value != ""){
-   filterPlayer(filteredList);
+    filteredList = filterPlayer(filteredList);
    }
    if(selLength.value != ""){
      filteredList = filterLength(filteredList);
@@ -258,12 +258,13 @@ function filter(gameList){
 // Filters
 function filterPlayer(gameList){
   if (gameList) {
+    var filtradinho = [];
   for(var i=0; i<gameList.length; i++) {
 
     switch(maxPlayers.checked && minPlayers.checked == false) {
       case true:
         if (gameList[i].Players[gameList[i].Players.length-1] == selPlayer.value) {
-          filteredList.push(gameList[i]);
+          filtradinho.push(gameList[i]);
         }
         break;
   default:
@@ -273,7 +274,7 @@ function filterPlayer(gameList){
     switch(minPlayers.checked && maxPlayers.checked == false) {
       case true:
         if (gameList[i].Players[0] == selPlayer.value) {
-          filteredList.push(gameList[i]);
+          filtradinho.push(gameList[i]);
         }
         break;
         default:
@@ -283,7 +284,7 @@ function filterPlayer(gameList){
     switch(maxPlayers.checked && minPlayers.checked) {
       case true:
         if (gameList[i].Players[gameList[i].Players.length-1] == selPlayer.value && gameList[i].Players[0] == selPlayer.value) {
-          filteredList.push(gameList[i]);
+          filtradinho.push(gameList[i]);
         }
         break;
       case false:
@@ -294,7 +295,7 @@ function filterPlayer(gameList){
       case true:
         for (var j=0; j<gameList[i].Players.length; j++) {
             if (gameList[i].Players[j] == selPlayer.value) {
-                filteredList.push(gameList[i]);
+                filtradinho.push(gameList[i]);
               }
     }
         break;
@@ -303,6 +304,7 @@ function filterPlayer(gameList){
     }
 
   }
+  return filtradinho;
 }
   else {
   document.getElementById("selectedGames").innerHTML += "<div id='error'> <b>Error:</b> The CSV file has not loaded yet. If the CSV file is located online, please wait a few seconds (2 or 3 seconds) and try again.</div>";
