@@ -13,6 +13,7 @@ const unplayed = document.getElementById('unplayedGames');
 const pagination = document.getElementById('pagination');
 const paginationItems = document.getElementById('paginationItems');
 const itemsperpage = document.getElementById('itemsperpage');
+const chosenListDiv = document.getElementById('chosenList');
 
 var segmentadinha = [];
 var pageItems;
@@ -20,6 +21,7 @@ var pageNum = 0;
 var bgList;
 var filteredList = [];
 var selected = [];
+var chosenList = [];
 var fullTemplate = "<div class='container'><img height='' alt='' src='' class='GamePicture'><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div></div></div><p id='GameName'>Title: </p><p id='GamePlayers'>Number of Players: </p><p id='GameTime'>Game Length: </p><p id='GameComplexity'>Game Complexity: </p><p id='GamePlayed'>Previously Played: </p><p id='GameMode'>Game Type: </p><p id='GameLocation'>Game Location: </p>";
 var picturesHeight = 200;
 var revUnplayedOriginal;
@@ -119,6 +121,7 @@ pagination.addEventListener("change", function() {
     itemsperpage.style='display:none';
   };
 });
+
 // Button: List all games based on the current filters
 list.addEventListener("click", function() {
 pageNum = 0;
@@ -153,7 +156,7 @@ function listGames(list){
       for (let z=0; z < segmento.length; z++) {
         var videoElement = segmento[z].Video ? `<div class='linkA'><a class='GameVideoLink' href='${segmento[z].Video}' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div>` : ``;
         string += `
-        <div class='container'>
+        <div class='container' onclick='chooseGame("${segmento[z].Game}")'>
           <img height='${picturesHeight}' alt='${segmento[z].Game}' src='${segmento[z].Picture}' class='GamePicture' style='${setGrayscale(segmento[z].Played)}'></img>
           <div class='overlay'>
             <div class='linkA'>
@@ -196,6 +199,25 @@ function setGrayscale(playedStatus) {
   if(playedStatus == "No" && unplayed.checked) {
     return '-webkit-filter: grayscale(100%); filter: grayscale(100%);';
   }
+}
+
+function resetChosenList() {
+  chosenList = [];
+  chosenListDiv.innerHTML = '';
+}
+
+function chooseGame(name) {
+  for (var i=0; i < chosenList.length; i++) {
+    if (name == chosenList[i]) {
+      return;
+    }
+  }
+  chosenList.push(name);
+  chosenListDiv.innerHTML = '';
+  for (var i=0; i < chosenList.length; i++) {
+    chosenListDiv.innerHTML += `<li>${chosenList[i]}</li>`;
+  }
+  chosenListDiv.innerHTML += `<br><button onclick="resetChosenList()">Reset</button>`
 }
 
 // Create pages when listing more than 50 Games
