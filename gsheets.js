@@ -14,7 +14,7 @@ function parseSheet() {
   // Reads values on the spreadsheet, starting from row 2.
   gapi.client.sheets.spreadsheets.values.get({
     spreadsheetId: "1ZLdvkWefFzPAZtWy8s6GG2HN17eRvJdH-LvL3Uqbeoc",
-    range: "A2:J"
+    range: "A2:K"
   }).then((response) => {
     let completeList = response.result.values;
     let list = [];
@@ -36,7 +36,7 @@ function Game(game) {
   this.Picture = game[6];
   this.Link = game[7];
   this.Video = game[8];
-  this.Position = splitArray(game[9], ",");
+  this.Position = game[10];
 }
 
 function splitArray(array, comma) {

@@ -151,6 +151,7 @@ function listGames(list){
     const htmlString = (function() {
       let string = "";
       for (let z=0; z < segmento.length; z++) {
+        var videoElement = segmento[z].Video ? `<div class='linkA'><a class='GameVideoLink' href='${segmento[z].Video}' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div>` : ``;
         string += `
         <div class='container'>
           <img height='${picturesHeight}' alt='${segmento[z].Game}' src='${segmento[z].Picture}' class='GamePicture' style='${setGrayscale(segmento[z].Played)}'></img>
@@ -158,9 +159,8 @@ function listGames(list){
             <div class='linkA'>
               <a class='GameLink' href='${segmento[z].Link}' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a>
             </div>
-            <div class='linkA'><a class='GameVideoLink' href='${setVideoURL(segmento[z].Video)}' target='_blank' style='${setVideoVisibility(segmento[z].Video)}'>
-              <img class='logos' src='logos/watchitplayed-original.jpeg' /></a>
-            </div>
+            ${videoElement}
+            <div class='linkA GamePosition'>${segmento[z].Position}</div>
           </div>
         </div>`
       }
@@ -195,18 +195,6 @@ function listGames(list){
 function setGrayscale(playedStatus) {
   if(playedStatus == "No" && unplayed.checked) {
     return '-webkit-filter: grayscale(100%); filter: grayscale(100%);';
-  }
-}
-
-function setVideoURL(videoLink) {
-  if(videoLink) {
-    return videoLink;
-  }
-}
-
-function setVideoVisibility(videoLink) {
-  if(!videoLink) {
-    return 'visibility:hidden;';
   }
 }
 
@@ -338,7 +326,6 @@ function filterMode(filteredList){
   var filtradinho = [];
   for(var i=0; i<filteredList.length; i++) {
     for (var j=0; j<=filteredList[i].Mode.length; j++) {
-      console.log(filteredList[i].Mode[j]);
       if (filteredList[i].Mode[j] == selMode.value) {
           filtradinho.push(filteredList[i]);
     };
