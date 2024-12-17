@@ -135,17 +135,19 @@ h1 {
   margin: 1em 0;
 }
 
-.chosenGamesList {
+#chosenGamesList {
 	position: fixed;
 	top: 10px;
 	right: 15px;
 	z-index: 9;
 	background-color: white;
+	max-height: 300px;
+	overflow: scroll;
 }
 
 ol {
-	list-style-type: decimal;
-	list-style-position: inside;
+	/* list-style-type: decimal;
+	list-style-position: inside; */
 }
 
 .container {
@@ -178,6 +180,7 @@ a {
 	float:left;
 	width: 33%;
 	margin-top: 10%;
+	max-height: 40%;
 }
 
 .logos {

@@ -213,9 +213,19 @@ function chooseGame(name) {
     }
   }
   chosenList.push(name);
+  displayChosenList();
+}
+
+function removeChosenItem(game) {
+  const index = chosenList.indexOf(game);
+  chosenList.splice(index, 1);
+  displayChosenList();
+}
+
+function displayChosenList() {
   chosenListDiv.innerHTML = '';
   for (var i=0; i < chosenList.length; i++) {
-    chosenListDiv.innerHTML += `<li>${chosenList[i]}</li>`;
+    chosenListDiv.innerHTML += `<li><i class="fas fa-backspace fa-rotate-180" onclick="removeChosenItem('${chosenList[i]}')"></i> ${chosenList[i]}</li>`;
   }
   chosenListDiv.innerHTML += `<br><button onclick="resetChosenList()">Reset</button>`
 }
