@@ -143,11 +143,11 @@ h1 {
 	background-color: white;
 	max-height: 300px;
 	overflow: scroll;
+	text-align: right;
 }
 
-ol {
-	/* list-style-type: decimal;
-	list-style-position: inside; */
+i.fa-backspace {
+	margin-right: 5px;
 }
 
 .container {

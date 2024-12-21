@@ -225,7 +225,7 @@ function removeChosenItem(game) {
 function displayChosenList() {
   chosenListDiv.innerHTML = '';
   for (var i=0; i < chosenList.length; i++) {
-    chosenListDiv.innerHTML += `<li><i class="fas fa-backspace fa-rotate-180" onclick="removeChosenItem('${chosenList[i]}')"></i> ${chosenList[i]}</li>`;
+    chosenListDiv.innerHTML += `<li class="chosenItems"><i class="fas fa-backspace fa-rotate-180" onclick="removeChosenItem('${chosenList[i]}')"></i>${chosenList[i]}</li>`;
   }
   chosenListDiv.innerHTML += `<br><button onclick="resetChosenList()">Reset</button>`
 }
