@@ -235,8 +235,8 @@ function displayChosenButtons(isLong, isFilled) {
   if (isLong) {
     chosenListDiv.innerHTML += `<br><button onclick="pickChosenList()">Pick One</button>`;
   }
-    chosenListDiv.innerHTML += `<button onclick="resetChosenList()">Reset</button>`;
   if (isFilled) {
+    chosenListDiv.innerHTML += `<button onclick="saveChosenList(this)" style="margin-bottom: 5px;">Copy</button><br><button onclick="resetChosenList()">Reset</button>`;
   }
 }
 
@@ -254,6 +254,27 @@ function pickChosenList() {
       return;
     }
   }
+}
+
+function saveChosenList(e) {
+  const url = window.location.href + "?list=" + encodeURIComponent(JSON.stringify(chosenList));
+  navigator.clipboard.writeText(url);
+  e.textContent = "Copied!";
+  setTimeout( function() {
+    e.textContent = "Copy";
+  }, 1000);
+}
+
+const url = window.location.href;
+if (url.match(/\?./)) {
+  const myUrl = new URL(url);
+  // get the query string
+  const receivedQueryString = myUrl.searchParams.get('list');
+  // convert the query string to an array
+  const receivedList = JSON.parse(receivedQueryString);
+
+  chosenList = receivedList;
+  displayChosenList();
 }
 
 // Create pages when listing more than 50 Games

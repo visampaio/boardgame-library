@@ -81,6 +81,7 @@ button, select, input {
 button {
 	margin-right: 5px;
 	border-radius: 100px;
+	cursor: pointer;
 }
 
 select {
