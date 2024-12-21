@@ -87,8 +87,7 @@ choose.addEventListener("click", function() {
   var gameVideoLink = document.getElementsByClassName("GameVideoLink");
   filteredList = [];
   document.getElementById("selectedGames").innerHTML = fullTemplate;
-  console.log(sort(bgList));
-  console.log(document.getElementsByClassName("GamePicture").height);
+  sort(bgList);
   document.getElementById("GameName").append(selected.Game);
   document.getElementById("GamePlayers").append(selected.Players);
   document.getElementById("GameTime").append(selected.Time);
@@ -227,7 +226,34 @@ function displayChosenList() {
   for (var i=0; i < chosenList.length; i++) {
     chosenListDiv.innerHTML += `<li class="chosenItems"><i class="fas fa-backspace fa-rotate-180" onclick="removeChosenItem('${chosenList[i]}')"></i>${chosenList[i]}</li>`;
   }
-  chosenListDiv.innerHTML += `<br><button onclick="resetChosenList()">Reset</button>`
+  let isLong = chosenList.length > 1 ? true : false;
+  let isFilled = chosenList.length > 0 ? true : false;
+  displayChosenButtons(isLong, isFilled);
+}
+
+function displayChosenButtons(isLong, isFilled) {
+  if (isLong) {
+    chosenListDiv.innerHTML += `<br><button onclick="pickChosenList()">Pick One</button>`;
+  }
+    chosenListDiv.innerHTML += `<button onclick="resetChosenList()">Reset</button>`;
+  if (isFilled) {
+  }
+}
+
+function pickChosenList() {
+  displayChosenList();
+
+  let gamePicked = chosenList[Math.floor(Math.random() * chosenList.length)];
+  const games = document.getElementsByClassName("chosenItems");
+
+  for (let i=0; i < games.length; i++) {
+    if (games[i].textContent == gamePicked) {
+      games[i].style.backgroundColor = "red";
+      games[i].style.color = "white";
+      games[i].style.fontWeight = "bold";
+      return;
+    }
+  }
 }
 
 // Create pages when listing more than 50 Games
