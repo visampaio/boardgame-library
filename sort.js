@@ -438,7 +438,9 @@ function filterPlayed(filteredList){
 function textSearch(text) {
   const searchString = text.toLowerCase();
   let searchResult = bgList.filter((item) => {
-    return item.Game.toLowerCase().includes(searchString);
+    if (item.Game) {
+      return item.Game.toLowerCase().includes(searchString);
+    }
   })
   return searchResult;
 }
