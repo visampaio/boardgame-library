@@ -155,8 +155,8 @@ function listGames(list){
       for (let z=0; z < segmento.length; z++) {
         var videoElement = segmento[z].Video ? `<div class='linkA'><a class='GameVideoLink' href='${segmento[z].Video}' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div>` : ``;
         string += `
-        <div class='container' onclick='chooseGame("${segmento[z].Game}")'>
-          <img height='${picturesHeight}' alt='${segmento[z].Game}' src='${segmento[z].Picture}' class='GamePicture' style='${setGrayscale(segmento[z].Played)}'></img>
+        <div class='container' title='${segmento[z].Game.replace(/'/g, '&#39;')}' onclick="chooseGame(this, this.title)">
+          <img height='${picturesHeight}' alt='${segmento[z].Game.replace(/'/g, '&#39;')}' src='${segmento[z].Picture}' class='GamePicture' style='${setGrayscale(segmento[z].Played)}'></img>
           <div class='overlay'>
             <div class='linkA'>
               <a class='GameLink' href='${segmento[z].Link}' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a>
@@ -205,7 +205,7 @@ function resetChosenList() {
   chosenListDiv.innerHTML = '';
 }
 
-function chooseGame(name) {
+function chooseGame(e, name) {
   for (var i=0; i < chosenList.length; i++) {
     if (name == chosenList[i]) {
       return;
