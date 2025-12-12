@@ -159,16 +159,11 @@ i.fa-backspace {
 	width: 200px;
 	background-position: 50% 50%;
 	background-size: cover;
+	position: relative;
 }
 
 a {
 	line-height: 0;
-}
-
-.container {
-	position: relative;
-	float:left;
-/*	margin: 0 10px; */
 }
 
 .overlay {

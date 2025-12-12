@@ -213,7 +213,12 @@ function chooseGame(e, name) {
       return;
     }
   }
-  e.style.outline = "5px solid red";
+  if (e.style.filter !== "grayscale(100%)") {
+    e.style.outline = "5px solid red";
+  }
+  else {
+    e.style.outline = "5px solid rgb(255, 133, 133)";
+  }
   chosenList.push(name);
   displayChosenList();
 }
@@ -224,7 +229,6 @@ function removeChosenItem(game) {
   const containerList = document.getElementsByClassName("container");
   for (var i=0; i < containerList.length; i++) {
     if (containerList[i].title == game) {
-      console.log(containerList[i].title == game);
       containerList[i].style.outline = "none";
     }
   }
