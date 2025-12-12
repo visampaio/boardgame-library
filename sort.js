@@ -257,7 +257,7 @@ function pickChosenList() {
 }
 
 function saveChosenList(e) {
-  const url = window.location.href + "?list=" + encodeURIComponent(JSON.stringify(chosenList));
+  const url = window.location.origin + window.location.pathname + "?list=" + encodeURIComponent(JSON.stringify(chosenList));
   navigator.clipboard.writeText(url);
   e.textContent = "Copied!";
   setTimeout( function() {
