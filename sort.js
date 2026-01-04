@@ -150,26 +150,7 @@ function listGames(list){
       document.getElementById("selectedGames").innerHTML += "<p>Games in this Page: " + segmento.length + "</p>";
     };
 
-    const htmlString = (function() {
-      let string = "";
-      for (let z=0; z < segmento.length; z++) {
-        var videoElement = segmento[z].Video ? `<div class='linkA'><a class='GameVideoLink' href='${segmento[z].Video}' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div>` : ``;
-        string += `
-        <div class='container' title='${segmento[z].Game.replace(/'/g, '&#39;')}' onclick="chooseGame(this, this.title)" 
-        alt='${segmento[z].Game.replace(/'/g, '&#39;')}' style='background-image: url("${segmento[z].Picture}"); ${setGrayscale(segmento[z].Played)}' height='${picturesHeight}' width='${picturesHeight}'">
-          <div class='overlay'>
-            <div class='linkA'>
-              <a class='GameLink' href='${segmento[z].Link}' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a>
-            </div>
-            ${videoElement}
-            <div class='linkA GamePosition'>${segmento[z].Position}</div>
-          </div>
-        </div>`
-      }
-      return string;
-    })();
-
-      document.getElementById("selectedGames").innerHTML += htmlString;
+      document.getElementById("selectedGames").innerHTML += createGamesDisplay(segmento);
 
       if (segmentadinha[pageNum-1]) {
         pageleft.style='visibility:visible';
@@ -193,6 +174,25 @@ function listGames(list){
   };
 
 };
+
+function createGamesDisplay(segmento) {
+      let string = "";
+      for (let z=0; z < segmento.length; z++) {
+        var videoElement = segmento[z].Video ? `<div class='linkA'><a class='GameVideoLink' href='${segmento[z].Video}' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div>` : ``;
+        string += `
+        <div class='container' title='${segmento[z].Game.replace(/'/g, '&#39;')}' onclick="chooseGame(this, this.title)" 
+        alt='${segmento[z].Game.replace(/'/g, '&#39;')}' style='background-image: url("${segmento[z].Picture}"); ${setGrayscale(segmento[z].Played)}' height='${picturesHeight}' width='${picturesHeight}'">
+          <div class='overlay'>
+            <div class='linkA'>
+              <a class='GameLink' href='${segmento[z].Link}' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a>
+            </div>
+            ${videoElement}
+            <div class='linkA GamePosition'>${segmento[z].Position}</div>
+          </div>
+        </div>`
+      }
+      return string;
+}
 
 function setGrayscale(playedStatus) {
   if(playedStatus == "No" && unplayed.checked) {
@@ -279,17 +279,31 @@ function saveChosenList(e) {
   }, 1000);
 }
 
-const url = window.location.href;
-if (url.match(/\?./)) {
-  const myUrl = new URL(url);
-  // get the query string
-  const receivedQueryString = myUrl.searchParams.get('list');
-  // convert the query string to an array
-  const receivedList = JSON.parse(receivedQueryString);
+// Creates list and game display when using an URL with a list parameter
+function displayAtStart() {
+  const url = window.location.href;
+  if (url.match(/\?./)) {
+    const myUrl = new URL(url);
+    // get the query string
+    const receivedQueryString = myUrl.searchParams.get('list');
+    // convert the query string to an array
+    const receivedList = JSON.parse(receivedQueryString);
 
-  chosenList = receivedList;
-  displayChosenList();
+    chosenList = receivedList;
+    displayChosenList();
+
+    let chosenObjects = [];
+    for (i=0; i < bgList.length; i++) {
+      for (j=0; j < chosenList.length; j++) {
+        if (bgList[i].Game == chosenList[j]) {
+          chosenObjects.push(bgList[i]);
+        }
+      }
+    }
+    document.getElementById("selectedGames").innerHTML = createGamesDisplay(chosenObjects);
+  }
 }
+
 
 // Create pages when listing more than 50 Games
 function createPages(totalList){

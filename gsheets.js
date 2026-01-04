@@ -23,6 +23,7 @@ function parseSheet() {
       list.push(game);
     }
     bgList = list;
+    displayAtStart();
   });
 }
 
