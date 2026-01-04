@@ -55,7 +55,7 @@ body {
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
 	line-height: 1.5em;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -155,8 +155,8 @@ i.fa-backspace {
 .container {
 	display:inline-grid;
 	margin: 3px;
-	height: 200px;
-	width: 200px;
+	height: 180px;
+	width: 180px;
 	background-position: 50% 50%;
 	background-size: cover;
 	position: relative;
