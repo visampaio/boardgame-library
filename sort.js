@@ -40,12 +40,14 @@ document.getElementById("pageleft").addEventListener("click", function() {
 const pictures = document.getElementsByClassName("container");
 
   increaseImg.addEventListener("click", function() {
-    let newSize = pictures[0].offsetHeight*1.1 + "px";
+    let newSize = pictures[0].offsetHeight+20;
+    console.log(newSize);
     changeImgSize(newSize);
   });
 
   decreaseImg.addEventListener("click", function() {
-    let newSize = pictures[0].offsetHeight*0.9 + "px";
+    let newSize = pictures[0].offsetHeight-20 + "px";
+    console.log(newSize);
     changeImgSize(newSize);
   });
 
