@@ -228,7 +228,7 @@ function chooseGame(e, name) {
     e.style.outline = "5px solid rgb(255, 133, 133)";
   }
   chosenList.push(name);
-  displayChosenList();
+  displayChosenListWindow();
 }
 
 function removeChosenItem(game) {
@@ -240,10 +240,10 @@ function removeChosenItem(game) {
       containerList[i].style.outline = "none";
     }
   }
-  displayChosenList();
+  displayChosenListWindow();
 }
 
-function displayChosenList() {
+function displayChosenListWindow() {
   chosenListDiv.innerHTML = '';
   for (var i=0; i < chosenList.length; i++) {
     chosenListDiv.innerHTML += `<li class="chosenItems"><i class="fas fa-backspace fa-rotate-180" onclick="removeChosenItem('${chosenList[i]}')"></i>${chosenList[i]}</li>`;
@@ -258,12 +258,18 @@ function displayChosenButtons(isLong, isFilled) {
     chosenListDiv.innerHTML += `<br><button onclick="pickChosenList()">Pick One</button>`;
   }
   if (isFilled) {
-    chosenListDiv.innerHTML += `<button onclick="saveChosenList(this)" style="margin-bottom: 5px;">Copy</button><br><button onclick="resetChosenList()">Reset</button>`;
+    chosenListDiv.innerHTML += `<button onclick="resetChosenList()">Reset</button><br>
+    <button onclick="saveChosenList(this)">Copy</button>
+    <button onclick="displayChosenList()">Display</button>`;
   }
 }
 
+function displayChosenList() {
+  displayListAsGames(chosenList);
+}
+
 function pickChosenList() {
-  displayChosenList();
+  displayChosenListWindow();
 
   let gamePicked = chosenList[Math.floor(Math.random() * chosenList.length)];
   const games = document.getElementsByClassName("chosenItems");
@@ -298,18 +304,21 @@ function displayAtStart() {
     const receivedList = JSON.parse(receivedQueryString);
 
     chosenList = receivedList;
-    displayChosenList();
+    displayChosenListWindow();
+    displayListAsGames(chosenList);
+  }
+}
 
-    let chosenObjects = [];
-    for (i=0; i < bgList.length; i++) {
-      for (j=0; j < chosenList.length; j++) {
-        if (bgList[i].Game == chosenList[j]) {
-          chosenObjects.push(bgList[i]);
-        }
+function displayListAsGames(list) {
+  let chosenObjects = [];
+  for (i=0; i < bgList.length; i++) {
+    for (j=0; j < list.length; j++) {
+      if (bgList[i].Game == list[j]) {
+        chosenObjects.push(bgList[i]);
       }
     }
-    document.getElementById("selectedGames").innerHTML = createGamesDisplay(chosenObjects);
   }
+  document.getElementById("selectedGames").innerHTML = createGamesDisplay(chosenObjects);
 }
 
 
