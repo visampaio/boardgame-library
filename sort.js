@@ -270,7 +270,7 @@ function displayChosenButtons(isLong, isFilled) {
     chosenListDiv.innerHTML += `<br><button onclick="pickChosenList()">Pick One</button>`;
   }
   if (isFilled) {
-    chosenListDiv.innerHTML += `<button onclick="resetChosenList()">Reset</button><br>
+    chosenListDiv.innerHTML += `<button onclick="resetChosenList()" style="margin-bottom: 5px;">Reset</button><br>
     <button onclick="saveChosenList(this)">Copy</button>
     <button onclick="displayChosenList()">Display</button>`;
   }
