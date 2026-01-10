@@ -159,6 +159,7 @@ function listGames(list){
     };
 
       document.getElementById("selectedGames").innerHTML += createGamesDisplay(segmento);
+      markGamesAsChosen();
 
       if (segmentadinha[pageNum-1]) {
         pageleft.style='visibility:visible';
@@ -205,6 +206,17 @@ function createGamesDisplay(segmento) {
 function setGrayscale(playedStatus) {
   if(playedStatus == "No" && unplayed.checked) {
     return '-webkit-filter: grayscale(100%); filter: grayscale(100%);';
+  }
+}
+
+function markGamesAsChosen() {
+  const containerList = document.getElementsByClassName("container");
+  for (var i=0; i < containerList.length; i++) {
+    for (var j=0; j < chosenList.length; j++) {
+      if (containerList[i].title == chosenList[j]) {
+      containerList[i].style.outline = "5px solid red";
+      }
+    }
   }
 }
 
@@ -319,6 +331,7 @@ function displayListAsGames(list) {
     }
   }
   document.getElementById("selectedGames").innerHTML = createGamesDisplay(chosenObjects);
+  markGamesAsChosen();
 }
 
 
