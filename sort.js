@@ -149,7 +149,7 @@ function listGames(list){
   var segmento = segmentadinha[pageNum];
 
   if (list == false) {
-    document.getElementById("selectedGames").innerHTML += "<div id='error'> <b>Error:</b> The CSV file has not loaded yet. If the CSV file is located online, please wait a few seconds (2 or 3 seconds) and try again.</div>";
+    document.getElementById("selectedGames").innerHTML = "<div id='error'> <b>Error:</b> The CSV file has not loaded yet. If the CSV file is located online, please wait a few seconds (2 or 3 seconds) and try again.</div>";
   }
   // Check if csv has already loaded
   if (filteredList.length > 0) {
@@ -179,7 +179,7 @@ function listGames(list){
   }
 
   else {
-    document.getElementById("selectedGames").innerHTML += "<div id='error'> <b>Error:</b> There are no games that fulfill these parameters.</div>";
+    document.getElementById("selectedGames").innerHTML = "<div id='error'> <b>Error:</b> There are no games that fulfill these parameters.</div>";
   };
 
 };
