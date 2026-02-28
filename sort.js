@@ -5,6 +5,7 @@ const selComplex = document.getElementById('selectComplex');
 const selMode = document.getElementById('selectMode');
 const checkNew = document.getElementById('checkNew');
 const checkPlayed = document.getElementById('checkPlayed');
+const checkReplay = document.getElementById('checkReplay');
 const maxPlayers = document.getElementById('maxPlayers');
 const minPlayers = document.getElementById('minPlayers');
 const choose = document.getElementById('choose');
@@ -377,6 +378,9 @@ function filter(gameList){
    if(checkNew.checked || checkPlayed.checked){
      filteredList = filterPlayed(filteredList);
    }
+   if(checkReplay.checked){
+     filteredList = filterReplay(filteredList);
+   }
    return filteredList;
 }
 
@@ -486,6 +490,17 @@ function filterPlayed(filteredList){
       if (filteredList[i].Played == "Yes") {
           filtradinho.push(filteredList[i]);
       }
+    }
+  }
+  filteredList = filtradinho;
+  return filteredList;
+}
+
+function filterReplay(filteredList){
+  var filtradinho = [];
+  for (var i=0; i<filteredList.length; i++) {
+    if (filteredList[i].Replay == "Yes") {
+        filtradinho.push(filteredList[i]);
     }
   }
   filteredList = filtradinho;
