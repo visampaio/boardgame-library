@@ -104,6 +104,7 @@ choose.addEventListener("click", function() {
 function displayGamesInCards(segmento) {
   let string = "";
   for (let z=0; z < segmento.length; z++) {
+    var playersList = segmento[z].Players.length > 1 ? segmento[z].Players.join(", ") : segmento[z].Players;
     var videoElement = segmento[z].Video ? `<div class='linkA'><a class='GameVideoLink' href='${segmento[z].Video}' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div>` : ``;
     string += ` 
         <div class='container' title='${segmento[z].Game.replace(/'/g, '&#39;')}' onclick="chooseGame(this, this.title)" 
