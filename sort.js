@@ -21,9 +21,7 @@ var pageItems;
 var pageNum = 0;
 var bgList;
 var filteredList = [];
-var selected = [];
 var chosenList = [];
-var fullTemplate = "<div class='container'><div class='overlay'><div class='linkA'><a class='GameLink' href='' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a></div><div class='linkA'><a class='GameVideoLink' href='' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div></div></div><p id='GameName'>Title: </p><p id='GamePlayers'>Number of Players: </p><p id='GameTime'>Game Length: </p><p id='GameComplexity'>Game Complexity: </p><p id='GamePlayed'>Previously Played: </p><p id='GameMode'>Game Type: </p><p id='GameLocation'>Game Location: </p>";
 var revUnplayedOriginal;
 
 document.getElementById("pageright").addEventListener("click", function() {
@@ -361,7 +359,7 @@ function createPages(totalList){
 // Randomly pick an item from the array
 function sort(){
   filteredList = filter(bgList);
-  selected = filteredList[Math.floor(Math.random() * filteredList.length)];
+  var selected = filteredList[Math.floor(Math.random() * filteredList.length)];
   return selected;
 }
 
