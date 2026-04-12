@@ -92,34 +92,39 @@ checkPlayed.addEventListener("change", function() {
 // Button: Choose a random game based on the current filters
 choose.addEventListener("click", function() {
   if (bgList) {
-  var picture = document.getElementsByClassName("container");
-  var gameLink = document.getElementsByClassName("GameLink");
-  var gameVideoLink = document.getElementsByClassName("GameVideoLink");
-  filteredList = [];
-  document.getElementById("selectedGames").innerHTML = fullTemplate;
-  sort(bgList);
-  document.getElementById("GameName").append(selected.Game);
-  document.getElementById("GamePlayers").append(selected.Players);
-  document.getElementById("GameTime").append(selected.Time);
-  document.getElementById("GameComplexity").append(selected.Complexity);
-  document.getElementById("GamePlayed").append(selected.Played);
-  document.getElementById("GameMode").append(selected.Mode);
-  document.getElementById("GameLocation").append(selected.Position);
-  picture[0].alt = selected.Game;
-  picture[0].style.backgroundImage = "url('" + selected.Picture + "')";
-  gameLink[0].href = selected.Link;
-
-  if (selected.Video) {
-  gameVideoLink[0].href = selected.Video;
+    let randomGame = [];
+    randomGame.push(sort(bgList));
+    document.getElementById("selectedGames").innerHTML = displayGameInCards(randomGame);
   }
   else {
-    gameVideoLink[0].style = 'visibility:hidden;'
+    document.getElementById("selectedGames").innerHTML = "<div id='error'> <b>Error:</b> The CSV file has not loaded yet. If the CSV file is located online, please wait a few seconds (2 or 3 seconds) and try again.</div>";
+  };
+});
+
+function displayGamesInCards(segmento) {
+  let string = "";
+  for (let z=0; z < segmento.length; z++) {
+    var videoElement = segmento[z].Video ? `<div class='linkA'><a class='GameVideoLink' href='${segmento[z].Video}' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div>` : ``;
+    string += ` 
+        <div class='container' title='${segmento[z].Game.replace(/'/g, '&#39;')}' onclick="chooseGame(this, this.title)" 
+        alt='${segmento[z].Game.replace(/'/g, '&#39;')}' style='background-image: url("${segmento[z].Picture}"); ${setGrayscale(segmento[z].Played)}'>
+          <div class='overlay'>
+            <div class='linkA'>
+              <a class='GameLink' href='${segmento[z].Link}' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a>
+            </div>
+              ${videoElement}
+          </div>
+        </div>
+          <p id='GameName'>Title: ${segmento[z].Game}</p>
+          <p id='GamePlayers'>Number of Players: ${segmento[z].Players}</p>
+          <p id='GameTime'>Game Length: ${segmento[z].Time}</p>
+          <p id='GameComplexity'>Game Complexity: ${segmento[z].Complexity}</p>
+          <p id='GameMode'>Game Type: ${segmento[z].Mode}</p>
+          <p id='GameLocation'>Game Location: ${segmento[z].Position}</p>
+        `;
+    return string;
   }
 }
-else {
-  document.getElementById("selectedGames").innerHTML += "<div id='error'> <b>Error:</b> The CSV file has not loaded yet. If the CSV file is located online, please wait a few seconds (2 or 3 seconds) and try again.</div>";
-};
-});
 
 pagination.addEventListener("change", function() {
   if (pagination.checked) {
