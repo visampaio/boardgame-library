@@ -95,6 +95,7 @@ choose.addEventListener("click", function() {
     let randomGame = [];
     randomGame.push(sort(bgList));
     document.getElementById("selectedGames").innerHTML = displayGamesInCards(randomGame);
+    markGamesAsChosen();
   }
   else {
     document.getElementById("selectedGames").innerHTML = "<div id='error'> <b>Error:</b> The CSV file has not loaded yet. If the CSV file is located online, please wait a few seconds (2 or 3 seconds) and try again.</div>";
