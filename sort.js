@@ -114,21 +114,27 @@ function displayGamesInCards(segmento) {
     var modeList = segmento[z].Mode.length > 1 ? segmento[z].Mode.join(", ") : segmento[z].Mode;
     var videoElement = segmento[z].Video ? `<div class='linkA'><a class='GameVideoLink' href='${segmento[z].Video}' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div>` : ``;
     string += ` 
-        <div class='container' title='${segmento[z].Game.replace(/'/g, '&#39;')}' onclick="chooseGame(this, this.title)" 
-        alt='${segmento[z].Game.replace(/'/g, '&#39;')}' style='background-image: url("${segmento[z].Picture}"); ${setGrayscale(segmento[z].Played)}'>
-          <div class='overlay'>
-            <div class='linkA'>
-              <a class='GameLink' href='${segmento[z].Link}' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a>
+        <div class="cardContainer">
+          <div class="card">
+            <div class='container' title='${segmento[z].Game.replace(/'/g, '&#39;')}' onclick="chooseGame(this, this.title)" 
+            alt='${segmento[z].Game.replace(/'/g, '&#39;')}' style='background-image: url("${segmento[z].Picture}"); ${setGrayscale(segmento[z].Played)}'>
+              <div class='overlay'>
+                <div class='linkA'>
+                  <a class='gameLink' href='${segmento[z].Link}' target='_blank'><img class='logos' src='logos/bgglogo-original.png' /></a>
+                </div>
+                  ${videoElement}
+              </div>
             </div>
-              ${videoElement}
+            <div class="gameInfo">
+              <p class='gameName'>${segmento[z].Game}</p>
+              <p class='gamePlayers'>Number of Players: ${playersList}</p>
+              <p class='gameTime'>Length: ${segmento[z].Time}</p>
+              <p class='gameComplexity'>Complexity: ${segmento[z].Complexity}</p>
+              <p class='gameMode'>Type: ${modeList}</p>
+              <p class='gameLocation'>Location: ${segmento[z].Position}</p>
+            </div>
           </div>
         </div>
-          <p id='GameName'>Title: ${segmento[z].Game}</p>
-          <p id='GamePlayers'>Number of Players: ${playersList}</p>
-          <p id='GameTime'>Game Length: ${segmento[z].Time}</p>
-          <p id='GameComplexity'>Game Complexity: ${segmento[z].Complexity}</p>
-          <p id='GameMode'>Game Type: ${modeList}</p>
-          <p id='GameLocation'>Game Location: ${segmento[z].Position}</p>
         `;
     return string;
   }
