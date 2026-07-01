@@ -8,7 +8,8 @@ const checkPlayed = document.getElementById('checkPlayed');
 const checkReplay = document.getElementById('checkReplay');
 const maxPlayers = document.getElementById('maxPlayers');
 const minPlayers = document.getElementById('minPlayers');
-const choose = document.getElementById('choose');
+const chooseOne = document.getElementById('chooseOne');
+const chooseThree = document.getElementById('chooseThree');
 const list = document.getElementById('list');
 const unplayed = document.getElementById('unplayedGames');
 const pagination = document.getElementById('pagination');
@@ -95,12 +96,18 @@ checkReplay.addEventListener("change", function() {
 })
 
 // Button: Choose a random game based on the current filters
-choose.addEventListener("click", function() {
+chooseOne.addEventListener("click", function() {
   if (bgList) {
-    let randomGame = [];
-    randomGame.push(sort(bgList));
-    document.getElementById("selectedGames").innerHTML = displayGamesInCards(randomGame);
-    markGamesAsChosen();
+    sortGames(1);
+  }
+  else {
+    document.getElementById("selectedGames").innerHTML = "<div id='error'> <b>Error:</b> The CSV file has not loaded yet. If the CSV file is located online, please wait a few seconds (2 or 3 seconds) and try again.</div>";
+  };
+});
+
+chooseThree.addEventListener("click", function() {
+  if (bgList) {
+    sortGames(3);
   }
   else {
     document.getElementById("selectedGames").innerHTML = "<div id='error'> <b>Error:</b> The CSV file has not loaded yet. If the CSV file is located online, please wait a few seconds (2 or 3 seconds) and try again.</div>";
@@ -108,13 +115,12 @@ choose.addEventListener("click", function() {
 });
 
 function displayGamesInCards(segmento) {
-  let string = "";
+  let string = `<div class="cardContainer">`;
   for (let z=0; z < segmento.length; z++) {
     var playersList = segmento[z].Players.length > 1 ? segmento[z].Players.join(", ") : segmento[z].Players;
     var modeList = segmento[z].Mode.length > 1 ? segmento[z].Mode.join(", ") : segmento[z].Mode;
     var videoElement = segmento[z].Video ? `<div class='linkA'><a class='GameVideoLink' href='${segmento[z].Video}' target='_blank'><img class='logos' src='logos/watchitplayed-original.jpeg' /></a></div>` : ``;
     string += ` 
-        <div class="cardContainer">
           <div class="card">
             <div class='container' title='${segmento[z].Game.replace(/'/g, '&#39;')}' onclick="chooseGame(this, this.title)" 
             alt='${segmento[z].Game.replace(/'/g, '&#39;')}' style='background-image: url("${segmento[z].Picture}"); ${setGrayscale(segmento[z].Played)}'>
@@ -134,10 +140,10 @@ function displayGamesInCards(segmento) {
               <p class='gameLocation'>Location: ${segmento[z].Position}</p>
             </div>
           </div>
-        </div>
         `;
-    return string;
   }
+  string += `</div>`;
+  return string;
 }
 
 pagination.addEventListener("change", function() {
@@ -280,14 +286,17 @@ function displayChosenListWindow() {
   for (var i=0; i < chosenList.length; i++) {
     chosenListDiv.innerHTML += `<li class="chosenItems"><i class="fas fa-backspace fa-rotate-180" onclick="removeChosenItem('${chosenList[i]}')"></i>${chosenList[i]}</li>`;
   }
-  let isLong = chosenList.length > 1 ? true : false;
+  let isLong = chosenList.length;
   let isFilled = chosenList.length > 0 ? true : false;
   displayChosenButtons(isLong, isFilled);
 }
 
 function displayChosenButtons(isLong, isFilled) {
-  if (isLong) {
-    chosenListDiv.innerHTML += `<br><button onclick="pickChosenList()">Pick One</button>`;
+  if (isLong > 1) {
+    chosenListDiv.innerHTML += `<br><button onclick="pickChosenList(1)">Pick One</button>`;
+  }
+  if (isLong > 3) {
+    chosenListDiv.innerHTML += `<br><button onclick="pickChosenList(3)">Pick Three</button>`;
   }
   if (isFilled) {
     chosenListDiv.innerHTML += `<button onclick="resetChosenList()" style="margin-bottom: 5px;">Reset</button><br>
@@ -300,27 +309,19 @@ function displayChosenList() {
   displayListAsGames(chosenList);
 }
 
-function pickChosenList() {
-  displayChosenListWindow();
+function pickChosenList(rep) {
+  let array = [];
 
-  let titlePicked = chosenList[Math.floor(Math.random() * chosenList.length)];
-  for (let i=0; i < bgList.length; i++) {
-    if (bgList[i].Game == titlePicked) {
-      let array = [bgList[i]];
-      document.getElementById("selectedGames").innerHTML = displayGamesInCards(array);
-      markGamesAsChosen();
-      return;
+  while (array.length < rep) {
+    let titlePicked = chosenList[Math.floor(Math.random() * chosenList.length)];
+    for (let i=0; i < bgList.length; i++) {
+      if (bgList[i].Game == titlePicked && !array.includes(bgList[i])) {
+        array.push(bgList[i]);
+      }
     }
   }
-
-  // for (let i=0; i < games.length; i++) {
-  //   if (games[i].textContent == gamePicked) {
-  //     games[i].style.backgroundColor = "red";
-  //     games[i].style.color = "white";
-  //     games[i].style.fontWeight = "bold";
-  //     return;
-  //   }
-  // }
+  document.getElementById("selectedGames").innerHTML = displayGamesInCards(array);
+  markGamesAsChosen();
 }
 
 function saveChosenList(e) {
@@ -377,10 +378,22 @@ function createPages(totalList){
 }
 
 // Randomly pick an item from the array
-function sort(){
+function sortGames(rep){
   filteredList = filter(bgList);
-  var selected = filteredList[Math.floor(Math.random() * filteredList.length)];
-  return selected;
+  if (filteredList.length < rep) {
+    document.getElementById("selectedGames").innerHTML = "<div id='error'> <b>Error:</b> There are not enough games to choose with these parameters.</div>"
+  }
+  else {
+    let array = [];
+    while (array.length < rep) {
+      let selected = filteredList[Math.floor(Math.random() * filteredList.length)];
+      if (!array.includes(selected)) {
+        array.push(selected);
+      }
+    }
+    document.getElementById("selectedGames").innerHTML = displayGamesInCards(array);
+    markGamesAsChosen();
+    }
 }
 
 // Filter CSV array based on selected filters
