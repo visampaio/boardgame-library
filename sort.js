@@ -73,6 +73,7 @@ const pictures = document.getElementsByClassName("container");
 checkNew.addEventListener("change", function() {
   if (checkNew.checked) {
     checkPlayed.checked = false;
+    checkReplay.checked = false;
     revUnplayedOriginal = unplayedGames.checked;
     unplayedGames.checked = false;
   }
@@ -83,6 +84,12 @@ checkNew.addEventListener("change", function() {
 
 checkPlayed.addEventListener("change", function() {
   if (checkPlayed.checked) {
+    checkNew.checked = false;
+  }
+})
+
+checkReplay.addEventListener("change", function() {
+  if (checkReplay.checked) {
     checkNew.checked = false;
   }
 })
