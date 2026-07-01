@@ -297,17 +297,24 @@ function displayChosenList() {
 function pickChosenList() {
   displayChosenListWindow();
 
-  let gamePicked = chosenList[Math.floor(Math.random() * chosenList.length)];
-  const games = document.getElementsByClassName("chosenItems");
-
-  for (let i=0; i < games.length; i++) {
-    if (games[i].textContent == gamePicked) {
-      games[i].style.backgroundColor = "red";
-      games[i].style.color = "white";
-      games[i].style.fontWeight = "bold";
+  let titlePicked = chosenList[Math.floor(Math.random() * chosenList.length)];
+  for (let i=0; i < bgList.length; i++) {
+    if (bgList[i].Game == titlePicked) {
+      let array = [bgList[i]];
+      document.getElementById("selectedGames").innerHTML = displayGamesInCards(array);
+      markGamesAsChosen();
       return;
     }
   }
+
+  // for (let i=0; i < games.length; i++) {
+  //   if (games[i].textContent == gamePicked) {
+  //     games[i].style.backgroundColor = "red";
+  //     games[i].style.color = "white";
+  //     games[i].style.fontWeight = "bold";
+  //     return;
+  //   }
+  // }
 }
 
 function saveChosenList(e) {
