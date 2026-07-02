@@ -113,16 +113,20 @@ select {
 	margin-right: 10px;
 }
 
-.selectDiv:after {
-	font-family: "Font Awesome 5 Free";
-	font-weight: 900;
-	content: "\f0dd";
+.selectDiv::after {
+  display: none;  /* See https://fontawesome.com/docs/web/add-icons/pseudo-elements#css-pseudo-elements-with-our-svg-js-framework */
+  font: var(--fa-font-solid);
+  content: "\f0dd";
+}
+
+.selectDiv svg {
+	top: 4px;
 	right: 11px;
 	position: absolute;
 	pointer-events: none;
 }
 
-.noArrow:after {
+.noArrow::after {
 	content: none;
 }
 
@@ -141,6 +145,11 @@ h1 a {
   margin: 1em 0;
 }
 
+#list {
+	background-color: #2c2943;
+	color: #FFF;
+}
+
 #chosenGamesList {
 	position: fixed;
 	top: 10px;
@@ -151,6 +160,10 @@ h1 a {
 	max-width: 250px;
 	overflow: scroll;
 	text-align: right;
+}
+
+#chosenGamesList button{
+	width: 25%;
 }
 
 i.fa-backspace {

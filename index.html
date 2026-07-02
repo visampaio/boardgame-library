@@ -4,7 +4,6 @@
   <title>Board Game Library</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon"/ >
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
@@ -78,15 +77,15 @@
   </div>
 
   <div id="searchButtons">
-    <button id="chooseOne">Choose a game for me!</button>
-    <button id="chooseThree">Choose 3 games for me!</button>
     <button id="list">Show me the games!</button>
+    <button id="chooseOne">Pick 1</button>
+    <button id="chooseThree">Pick 3</button>
   </div>
 
   <aside id="settings">
-    <button id="increaseImg">Increase images size</button>
-    <button id="decreaseImg">Decrease images size</button>
-    <button id="resetImgSize">Restore images size to default</button>
+    <button id="increaseImg" aria-label="Increase images size"><i class="fa-solid fa-magnifying-glass-plus fa-xl"></i></button>
+    <button id="decreaseImg" aria-label="Decrease images size"><i class="fa-solid fa-magnifying-glass-minus fa-xl"></i></button>
+    <button id="resetImgSize" aria-label="Restore images size to default"><i class="fa-solid fa-arrows-rotate fa-xl"></i></button>
     <button id='pageleft'>Previous Page</button>
     <button id='pageright'>Next Page</button>
 
@@ -105,5 +104,6 @@
   <script src="gsheets.js"></script>
   <script src="sort.js"></script>
   <script src="storage.js"></script>
+  <script src="https://kit.fontawesome.com/3f51c67b48.js" crossorigin="anonymous" data-search-pseudo-elements defer></script>
 </body>
 </html>

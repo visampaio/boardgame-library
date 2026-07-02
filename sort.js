@@ -284,7 +284,7 @@ function removeChosenItem(game) {
 function displayChosenListWindow() {
   chosenListDiv.innerHTML = '';
   for (var i=0; i < chosenList.length; i++) {
-    chosenListDiv.innerHTML += `<li class="chosenItems"><i class="fas fa-backspace fa-rotate-180" onclick="removeChosenItem('${chosenList[i]}')"></i>${chosenList[i]}</li>`;
+    chosenListDiv.innerHTML += `<li class="chosenItems"><i class="fas fa-backspace fa-rotate-180" onclick="removeChosenItem('${chosenList[i]}')"></i> ${chosenList[i]}</li>`;
   }
   let isLong = chosenList.length;
   let isFilled = chosenList.length > 0 ? true : false;
@@ -293,13 +293,13 @@ function displayChosenListWindow() {
 
 function displayChosenButtons(isLong, isFilled) {
   if (isLong > 1) {
-    chosenListDiv.innerHTML += `<br><button onclick="pickChosenList(1)">Pick One</button>`;
+    chosenListDiv.innerHTML += `<br><button onclick="pickChosenList(1)">Pick 1</button>`;
   }
   if (isLong > 3) {
-    chosenListDiv.innerHTML += `<br><button onclick="pickChosenList(3)">Pick Three</button>`;
+    chosenListDiv.innerHTML += `<button onclick="pickChosenList(3)">Pick 3</button>`;
   }
   if (isFilled) {
-    chosenListDiv.innerHTML += `<button onclick="resetChosenList()" style="margin-bottom: 5px;">Reset</button><br>
+    chosenListDiv.innerHTML += `<br><button onclick="resetChosenList()" style="margin: 5px;">Reset</button><br>
     <button onclick="saveChosenList(this)">Copy</button>
     <button onclick="displayChosenList()">Display</button>`;
   }
@@ -313,7 +313,7 @@ function pickChosenList(rep) {
   let array = [];
 
   while (array.length < rep) {
-    let titlePicked = chosenList[Math.floor(Math.random() * chosenList.length)];
+    let titlePicked = chosenList[Math.floor(Math.random() * (chosenList.length - 1) - 0 + 1)];
     for (let i=0; i < bgList.length; i++) {
       if (bgList[i].Game == titlePicked && !array.includes(bgList[i])) {
         array.push(bgList[i]);
@@ -386,7 +386,7 @@ function sortGames(rep){
   else {
     let array = [];
     while (array.length < rep) {
-      let selected = filteredList[Math.floor(Math.random() * filteredList.length)];
+      let selected = filteredList[Math.floor(Math.random() * (filteredList.length - 1) - 0 + 1)];
       if (!array.includes(selected)) {
         array.push(selected);
       }
