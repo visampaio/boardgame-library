@@ -313,7 +313,7 @@ function pickChosenList(rep) {
   let array = [];
 
   while (array.length < rep) {
-    let titlePicked = chosenList[Math.floor(Math.random() * (chosenList.length - 1) - 0 + 1)];
+    let titlePicked = chosenList[Math.floor(Math.random() * chosenList.length)];
     for (let i=0; i < bgList.length; i++) {
       if (bgList[i].Game == titlePicked && !array.includes(bgList[i])) {
         array.push(bgList[i]);
@@ -386,7 +386,7 @@ function sortGames(rep){
   else {
     let array = [];
     while (array.length < rep) {
-      let selected = filteredList[Math.floor(Math.random() * (filteredList.length - 1) - 0 + 1)];
+      let selected = filteredList[Math.floor(Math.random() * filteredList.length];
       if (!array.includes(selected)) {
         array.push(selected);
       }
