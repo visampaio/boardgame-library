@@ -386,7 +386,7 @@ function sortGames(rep){
   else {
     let array = [];
     while (array.length < rep) {
-      let selected = filteredList[Math.floor(Math.random() * filteredList.length];
+      let selected = filteredList[Math.floor(Math.random() * filteredList.length)];
       if (!array.includes(selected)) {
         array.push(selected);
       }
