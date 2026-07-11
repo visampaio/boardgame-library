@@ -6,6 +6,7 @@ const selMode = document.getElementById('selectMode');
 const checkNew = document.getElementById('checkNew');
 const checkPlayed = document.getElementById('checkPlayed');
 const checkReplay = document.getElementById('checkReplay');
+const checkDigital = document.getElementById('digitalIncluded');
 const maxPlayers = document.getElementById('maxPlayers');
 const minPlayers = document.getElementById('minPlayers');
 const chooseOne = document.getElementById('chooseOne');
@@ -423,6 +424,9 @@ function filter(gameList){
    if(checkReplay.checked){
      filteredList = filterReplay(filteredList);
    }
+   if(checkDigital.checked){
+     filteredList = filterDigital(filteredList);
+   }
    return filteredList;
 }
 
@@ -545,8 +549,17 @@ function filterReplay(filteredList){
         filtradinho.push(filteredList[i]);
     }
   }
-  filteredList = filtradinho;
-  return filteredList;
+  return filtradinho;
+}
+
+function filterDigital(filteredList){
+  var filtradinho = [];
+  for (var i=0; i<filteredList.length; i++) {
+    if (filteredList[i].Position == "Online") {
+        filtradinho.push(filteredList[i]);
+    }
+  }
+  return filtradinho;
 }
 
 // List all games based on current filters + text search
