@@ -63,6 +63,10 @@ header {
 	overflow: overlay;
 }
 
+header input, header select {
+	width: 120px;
+}
+
 b {
 	font-weight:bolder;
 }
@@ -302,4 +306,8 @@ a {
 
 #itemsperpage {
 	display: none;
+}
+
+label:has(> #pagination), #itemsperpage {
+	visibility: hidden;
 }
