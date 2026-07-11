@@ -75,7 +75,6 @@ const pictures = document.getElementsByClassName("container");
 checkNew.addEventListener("change", function() {
   if (checkNew.checked) {
     checkPlayed.checked = false;
-    checkReplay.checked = false;
     revUnplayedOriginal = unplayedGames.checked;
     unplayedGames.checked = false;
   }
@@ -87,12 +86,7 @@ checkNew.addEventListener("change", function() {
 checkPlayed.addEventListener("change", function() {
   if (checkPlayed.checked) {
     checkNew.checked = false;
-  }
-})
-
-checkReplay.addEventListener("change", function() {
-  if (checkReplay.checked) {
-    checkNew.checked = false;
+    checkReplay.checked = false;
   }
 })
 
@@ -418,11 +412,8 @@ function filter(gameList){
    if(selMode.value != ""){
      filteredList = filterMode(filteredList);
    }
-   if(checkNew.checked || checkPlayed.checked){
+   if(checkNew.checked || checkPlayed.checked || checkReplay.checked){
      filteredList = filterPlayed(filteredList);
-   }
-   if(checkReplay.checked){
-     filteredList = filterReplay(filteredList);
    }
    if(checkDigital.checked){
      filteredList = filterDigital(filteredList);
@@ -524,29 +515,23 @@ function filterMode(filteredList){
 
 function filterPlayed(filteredList){
   var filtradinho = [];
-  if (checkNew.checked) {
   for (var i=0; i<filteredList.length; i++) {
-    if (filteredList[i].Played == "No") {
+    if (checkNew.checked) {
+      if (filteredList[i].Played == "No") {
         filtradinho.push(filteredList[i]);
-    }
-  }
-}
-  if (checkPlayed.checked) {
-    for (var i=0; i<filteredList.length; i++) {
-      if (filteredList[i].Played == "Yes") {
-          filtradinho.push(filteredList[i]);
       }
     }
-  }
-  filteredList = filtradinho;
-  return filteredList;
-}
 
-function filterReplay(filteredList){
-  var filtradinho = [];
-  for (var i=0; i<filteredList.length; i++) {
-    if (filteredList[i].Replay == "Yes") {
+    if (checkPlayed.checked) {
+      if (filteredList[i].Played == "Yes") {
         filtradinho.push(filteredList[i]);
+      }
+    }
+
+    if (checkReplay.checked) {
+      if (filteredList[i].Replay == "Yes") {
+        filtradinho.push(filteredList[i]);
+      }
     }
   }
   return filtradinho;
