@@ -249,7 +249,10 @@ function markGamesAsChosen() {
 function resetChosenList() {
   chosenList = [];
   chosenListDiv.innerHTML = '';
-  listGames(bgList);
+  document.getElementById("selectedGames").innerHTML = "";
+  if (filteredList.length >= 1) {
+    listGames(bgList);
+  }
 }
 
 function chooseGame(e, name) {
