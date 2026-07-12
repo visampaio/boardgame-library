@@ -415,9 +415,7 @@ function filter(gameList){
    if(checkNew.checked || checkPlayed.checked || checkReplay.checked){
      filteredList = filterPlayed(filteredList);
    }
-   if(checkDigital.checked){
      filteredList = filterDigital(filteredList);
-   }
    return filteredList;
 }
 
@@ -540,8 +538,11 @@ function filterPlayed(filteredList){
 function filterDigital(filteredList){
   var filtradinho = [];
   for (var i=0; i<filteredList.length; i++) {
-    if (filteredList[i].Position == "Online") {
+    if (filteredList[i].Position == "Online" && checkDigital.checked) {
         filtradinho.push(filteredList[i]);
+    }
+    else if (filteredList[i].Position !== "Online" && !checkDigital.checked) {
+      filtradinho.push(filteredList[i]);
     }
   }
   return filtradinho;
