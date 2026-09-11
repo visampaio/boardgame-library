@@ -2,8 +2,8 @@
 <html>
 <head>
   <title>Board Game Library</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon"/ >
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" >
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
@@ -101,7 +101,8 @@
     <p>No games selected at the moment.</p>
   </main>
 
-  <script src="https://apis.google.com/js/api.js"></script>
+  <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+  <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
   <script src="gsheets.js"></script>
   <script src="sort.js"></script>
   <script src="storage.js"></script>
