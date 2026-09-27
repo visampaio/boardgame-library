@@ -245,6 +245,7 @@ function resetChosenList() {
   chosenList = [];
   chosenListDiv.innerHTML = '';
   document.getElementById("selectedGames").innerHTML = "";
+  document.getElementById("chosenGamesList").style.display = "none";
   if (filteredList.length >= 1) {
     listGames(bgList);
   }
@@ -281,6 +282,13 @@ function removeChosenItem(game) {
 
 function displayChosenListWindow() {
   chosenListDiv.innerHTML = '';
+  const asideDiv = document.getElementById("chosenGamesList");
+  if (chosenList.length > 0) {
+    asideDiv.style.display = "flex";
+  }
+  else {
+    asideDiv.style.display = "none";
+  }
   for (var i=0; i < chosenList.length; i++) {
     chosenListDiv.innerHTML += `<li class="chosenItems"><i class="fas fa-backspace fa-rotate-180" onclick="removeChosenItem('${chosenList[i]}')"></i> ${chosenList[i]}</li>`;
   }
@@ -294,10 +302,10 @@ function displayChosenButtons(isLong, isFilled) {
     chosenListDiv.innerHTML += `<br><button onclick="pickChosenList(1)">Pick 1</button>`;
   }
   if (isLong > 3) {
-    chosenListDiv.innerHTML += `<button onclick="pickChosenList(3)">Pick 3</button>`;
+    chosenListDiv.innerHTML += `<button onclick="pickChosenList(3)" style="margin: 5px;">Pick 3</button>`;
   }
   if (isFilled) {
-    chosenListDiv.innerHTML += `<br><button onclick="resetChosenList()" style="margin: 5px;">Reset</button><br>
+    chosenListDiv.innerHTML += `<br><button onclick="resetChosenList()">Reset</button>
     <button onclick="saveChosenList(this)">Copy</button>
     <button onclick="displayChosenList()">Display</button>`;
   }
@@ -330,6 +338,12 @@ function saveChosenList(e) {
     e.textContent = "Copy";
   }, 1000);
 }
+
+document.getElementById("closeList").addEventListener("click", function() {
+  chosenListDiv.classList.toggle("hidden");
+  document.querySelector("#closeList svg").classList.toggle("fa-rotate-180");
+});
+
 
 // Creates list and game display when using an URL with a list parameter
 function displayAtStart() {
