@@ -39,7 +39,7 @@ async function parseSheet() {
     // Reads values on the spreadsheet, starting from row 2.
     const response = await gapi.client.sheets.spreadsheets.values.get({
       spreadsheetId: "1ZLdvkWefFzPAZtWy8s6GG2HN17eRvJdH-LvL3Uqbeoc",
-      range: "A2:N600",
+      range: "A2:O600",
     });
 
   let completeList = response.result.values;
@@ -70,6 +70,7 @@ function Game(game) {
   this.Video = game[8];
   this.Position = game[10];
   this.Replay = game[13];
+  this.HM = game[14];
 }
 
 function splitArray(array, comma) {

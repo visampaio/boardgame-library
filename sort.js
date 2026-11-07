@@ -13,6 +13,7 @@ const chooseOne = document.getElementById('chooseOne');
 const chooseThree = document.getElementById('chooseThree');
 const list = document.getElementById('list');
 const unplayed = document.getElementById('unplayedGames');
+const homemade = document.getElementById('homemade');
 const pagination = document.getElementById('pagination');
 const paginationItems = document.getElementById('paginationItems');
 const itemsperpage = document.getElementById('itemsperpage');
@@ -430,6 +431,7 @@ function filter(gameList){
      filteredList = filterPlayed(filteredList);
    }
      filteredList = filterDigital(filteredList);
+     filteredList = filterHomemade(filteredList);
    return filteredList;
 }
 
@@ -556,6 +558,19 @@ function filterDigital(filteredList){
         filtradinho.push(filteredList[i]);
     }
     else if (filteredList[i].Position !== "Online" && !checkDigital.checked) {
+      filtradinho.push(filteredList[i]);
+    }
+  }
+  return filtradinho;
+}
+
+function filterHomemade(filteredList){
+  var filtradinho = [];
+  for (var i=0; i<filteredList.length; i++) {
+    if (filteredList[i].HM !== "Yes" && homemade.checked) {
+        filtradinho.push(filteredList[i]);
+    }
+    else if (!homemade.checked) {
       filtradinho.push(filteredList[i]);
     }
   }
