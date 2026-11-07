@@ -10,7 +10,11 @@
 <body>
 
   <header>
-    <h1><a href="/boardgame-library/">Boardgame Library</a></h1>
+    <h1><a href="/boardgame-library/">Boardgame Library</a>
+      <label for="homemade" id="homemadeIcon">
+        <input type="checkbox" id="homemade">
+        <span class="checkbox-emoji"></span>
+      </label></h1>
 
     <div class="selectDiv noArrow">
       <input type="text" name="searchBar" id="searchBar" placeholder="Name">
@@ -73,7 +77,6 @@
     <label><input type="checkbox" id="minPlayers">Min Players</label>
     <label><input type="checkbox" id="maxPlayers">Max Players</label>
     <label><input type="checkbox" id="unplayedGames" checked>Reveal Unplayed</label>
-    <label><input type="checkbox" id="homemade"></label>
     <label><input type="checkbox" id="pagination">Pagination?</label>
     <label id='itemsperpage'><input type="text" value="50" id="paginationItems">Items per Page</label>
   </div>

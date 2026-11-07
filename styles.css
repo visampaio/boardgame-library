@@ -337,3 +337,13 @@ a {
 label:has(> #pagination), #itemsperpage {
 	visibility: hidden;
 }
+
+#homemade {
+	display: none;
+}
+#homemadeIcon .checkbox-emoji::before {
+  content: "🎲";
+}
+#homemade:checked + .checkbox-emoji::before {
+  content: "😎";
+}
